@@ -1,0 +1,12 @@
+.vs/GSProInterface/DesignTimeBuild/.dtbcache.v2
+.vs/GSProInterface/v16/.suo
+GSProInterface.Test/obj/
+GSProInterface.UI/obj/
+GSProInterface/obj/
+GSProInterface.TestConsole/bin/
+GSProInterface.TestConsole/obj/Debug/net5.0/.NETCoreApp,Version=v5.0.AssemblyAttributes.cs
+GSProInterface.TestConsole/obj/
+GSProInterface/bin/
+GSProInterface.Test/bin/
+GSProInterface.UI/bin/
+.vs/
