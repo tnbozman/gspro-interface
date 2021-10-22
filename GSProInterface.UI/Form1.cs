@@ -10,16 +10,12 @@ using System.Windows.Forms;
 
 namespace GSProInterface.UI
 {
-    public partial class Form1 : Form
+    public partial class GSPRO_INTERFACE : Form
     {
-        public Form1()
+        public GSPRO_INTERFACE()
         {
             InitializeComponent();
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
     }
 }
