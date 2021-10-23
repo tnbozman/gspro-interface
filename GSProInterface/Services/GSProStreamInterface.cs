@@ -19,20 +19,13 @@ namespace GSProInterface.Services
     public class GSProStreamInterface: IGSProInterface
     {
         private readonly IStreamClient _client;
-        private static ManualResetEvent shotReceived = new ManualResetEvent(false);
-        private bool isAdvancedClient = false;
+
         private readonly ILogger<IGSProInterface> _logger;
 
         public GSProStreamInterface(ILogger<IGSProInterface> logger, IStreamClient client)
         {
             _logger = logger;
-            if (client is StreamClientAdvanced)
-            {
-                _logger.LogDebug("Advanced stream client configured");
-                isAdvancedClient = true;
-                (client as StreamClientAdvanced).ShotReceived += StreamResponseReceived;
-            }
-               
+             
             _client = client;
         }
 
@@ -41,13 +34,7 @@ namespace GSProInterface.Services
             try
             {
                 _logger.LogDebug($"Attempting to connect to {Constants.IP_ADDRESS}:{Constants.PORT}");
-                _client.Connect(Constants.IP_ADDRESS, Constants.PORT);
-                if (isAdvancedClient)
-                {
-                    _logger.LogDebug($"Starting Advanced stream client's threads.");
-                    (_client as StreamClientAdvanced).Start();
-                }
-                    
+                _client.Connect(Constants.IP_ADDRESS, Constants.PORT);                    
             }
             catch(Exception ex)
             {
@@ -94,12 +81,6 @@ namespace GSProInterface.Services
         protected ResponseDto SendShotData(ShotDataDto shotData)
         {
             _client.Send(shotData);
-            if (isAdvancedClient)
-            {
-                _logger.LogDebug($"Advanced stream client - locking to wait for a maximum of 10s for shot data response.");
-                shotReceived.WaitOne(10000);
-                _logger.LogDebug($"Advanced stream client - finished waiting checking for response.");
-            }
             return _client.Receive();
         }
 
@@ -115,16 +96,6 @@ namespace GSProInterface.Services
             _logger.LogDebug($"Shot response was invalid.");
             throw new ShotException("Response was invalid for a shot.");
         }
-
-        void StreamResponseReceived(StreamClientAdvanced client, ResponseDto response)
-        {
-            if(response.Code == (int)ResponseCodes.SHOT_SUCCESS)
-            {
-                _logger.LogDebug($"Received a shot response, unlocking shot received.");
-                shotReceived.Set();
-            }
-        }
-
 
     }
 }

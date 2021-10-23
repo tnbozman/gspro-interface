@@ -40,7 +40,7 @@ namespace GSProInterface.Services
         /// List containing all messages that is waiting to be delivered to the remote client/server
         /// </summary>
         public BlockingCollection<ShotMessage> SendMessageQueue { get; private set; }
-        public Queue<ResponseMessage> ReceiveMessageQueue { get; private set; }
+        public BlockingCollection<ResponseMessage> ReceiveMessageQueue { get; private set; }
         #endregion
 
         #region Events
@@ -72,7 +72,7 @@ namespace GSProInterface.Services
         {
             _logger = logger;
             SendMessageQueue = new BlockingCollection<ShotMessage>();
-            ReceiveMessageQueue = new Queue<ResponseMessage>();
+            ReceiveMessageQueue = new BlockingCollection<ResponseMessage>();
             Status = Status.Disconnected;
         }
         #endregion
@@ -100,15 +100,17 @@ namespace GSProInterface.Services
             Status = Status.Connected;
             _logger.LogDebug($"Connection to {address}:{port} successful");
 
-            receivingThread = new Thread(ReceivingMethod);
-            receivingThread.IsBackground = true;
-            
-            sendingThread = new Thread(SendingMethod);
-            sendingThread.IsBackground = true;
+            StartThreads();
         }
 
-        public void Start()
+        private void StartThreads()
         {
+            receivingThread = new Thread(ReceivingMethod);
+            receivingThread.IsBackground = true;
+
+            sendingThread = new Thread(SendingMethod);
+            sendingThread.IsBackground = true;
+
             _logger.LogDebug($"Starting receiving thread.");
             receivingThread.Start();
             _logger.LogDebug($"Starting sending thread.");
@@ -120,12 +122,8 @@ namespace GSProInterface.Services
         /// </summary>
         public void Disconnect()
         {
-            ReceiveMessageQueue.Clear();
-            while(SendMessageQueue.Count > 0)
-            {
-                ShotMessage dummy;
-                SendMessageQueue.TryTake(out dummy, TimeSpan.FromMilliseconds(10));
-            }
+            ClearBlockingCollection<ResponseMessage>(ReceiveMessageQueue);
+            ClearBlockingCollection<ShotMessage>(SendMessageQueue);
             
             Status = Status.Disconnected;
             // Release the socket.  
@@ -133,6 +131,15 @@ namespace GSProInterface.Services
             client.Close();
             OnClientDisconnected();
             _logger.LogDebug($"Connection disconnected.");
+        }
+
+        private void ClearBlockingCollection<T>(BlockingCollection<T> collection)
+        {
+            while (collection.Count > 0)
+            {
+                T dummy;
+                collection.TryTake(out dummy, TimeSpan.FromMilliseconds(10));
+            }
         }
 
         public void Send(ShotDataDto message)
@@ -143,13 +150,17 @@ namespace GSProInterface.Services
 
         public ResponseDto Receive()
         {
-            if(ReceiveMessageQueue.Count > 0)
-            {
+
                 _logger.LogDebug($"Receiving message.");
-                return ReceiveMessageQueue.Dequeue().Payload;
-            }
-            _logger.LogDebug($"No message found to return within receive message.");
-            return null;
+                ResponseMessage msg;
+                if(ReceiveMessageQueue.TryTake(out msg, 10000))
+                {
+                    _logger.LogDebug($"Received message.");
+                    return msg.Payload;
+                }
+
+                _logger.LogDebug($"No message found to return within receive message.");
+                return null;            
         }
 
         #endregion
@@ -309,7 +320,7 @@ namespace GSProInterface.Services
             {
                 var response = (msg as ResponseMessage);
                 _logger.LogDebug($"Received message queued.");
-                ReceiveMessageQueue.Enqueue(response);
+                ReceiveMessageQueue.Add(response);
                 OnResponseReceived(response.Payload);
             }
         }
