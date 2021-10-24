@@ -138,21 +138,64 @@ namespace GSProInterface.UI
             // 
             // ball_carry_distance
             // 
+            this.ball_carry_distance.DecimalPlaces = 1;
             this.ball_carry_distance.Location = new System.Drawing.Point(15, 367);
+            this.ball_carry_distance.Maximum = new decimal(new int[] {
+            400,
+            0,
+            0,
+            0});
+            this.ball_carry_distance.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.ball_carry_distance.Name = "ball_carry_distance";
             this.ball_carry_distance.Size = new System.Drawing.Size(91, 27);
             this.ball_carry_distance.TabIndex = 11;
+            this.ball_carry_distance.Value = new decimal(new int[] {
+            220,
+            0,
+            0,
+            0});
             // 
             // ball_vla
             // 
+            this.ball_vla.DecimalPlaces = 1;
             this.ball_vla.Location = new System.Drawing.Point(15, 303);
+            this.ball_vla.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.ball_vla.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.ball_vla.Name = "ball_vla";
             this.ball_vla.Size = new System.Drawing.Size(91, 27);
             this.ball_vla.TabIndex = 10;
+            this.ball_vla.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
             // 
             // ball_hla
             // 
+            this.ball_hla.DecimalPlaces = 1;
             this.ball_hla.Location = new System.Drawing.Point(15, 239);
+            this.ball_hla.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.ball_hla.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            -2147483648});
             this.ball_hla.Name = "ball_hla";
             this.ball_hla.Size = new System.Drawing.Size(91, 27);
             this.ball_hla.TabIndex = 9;
@@ -160,23 +203,69 @@ namespace GSProInterface.UI
             // ball_total_spin
             // 
             this.ball_total_spin.Location = new System.Drawing.Point(15, 173);
+            this.ball_total_spin.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.ball_total_spin.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.ball_total_spin.Name = "ball_total_spin";
             this.ball_total_spin.Size = new System.Drawing.Size(91, 27);
             this.ball_total_spin.TabIndex = 8;
+            this.ball_total_spin.Value = new decimal(new int[] {
+            2400,
+            0,
+            0,
+            0});
             // 
             // ball_spin_axis
             // 
+            this.ball_spin_axis.DecimalPlaces = 1;
             this.ball_spin_axis.Location = new System.Drawing.Point(15, 112);
+            this.ball_spin_axis.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.ball_spin_axis.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
             this.ball_spin_axis.Name = "ball_spin_axis";
             this.ball_spin_axis.Size = new System.Drawing.Size(91, 27);
             this.ball_spin_axis.TabIndex = 7;
+            this.ball_spin_axis.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // ball_speed
             // 
             this.ball_speed.Location = new System.Drawing.Point(13, 53);
+            this.ball_speed.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
+            this.ball_speed.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.ball_speed.Name = "ball_speed";
             this.ball_speed.Size = new System.Drawing.Size(91, 27);
             this.ball_speed.TabIndex = 6;
+            this.ball_speed.Value = new decimal(new int[] {
+            147,
+            0,
+            0,
+            0});
             // 
             // ball_carry_distance_label
             // 
@@ -210,9 +299,9 @@ namespace GSProInterface.UI
             this.ball_total_spin_label.AutoSize = true;
             this.ball_total_spin_label.Location = new System.Drawing.Point(10, 152);
             this.ball_total_spin_label.Name = "ball_total_spin_label";
-            this.ball_total_spin_label.Size = new System.Drawing.Size(75, 20);
+            this.ball_total_spin_label.Size = new System.Drawing.Size(116, 20);
             this.ball_total_spin_label.TabIndex = 2;
-            this.ball_total_spin_label.Text = "Total Spin";
+            this.ball_total_spin_label.Text = "Total Spin (rpm)";
             // 
             // ball_spin_axis_label
             // 
@@ -265,6 +354,7 @@ namespace GSProInterface.UI
             // 
             // club_closure_rate
             // 
+            this.club_closure_rate.DecimalPlaces = 1;
             this.club_closure_rate.Location = new System.Drawing.Point(158, 236);
             this.club_closure_rate.Name = "club_closure_rate";
             this.club_closure_rate.Size = new System.Drawing.Size(91, 27);
@@ -272,6 +362,7 @@ namespace GSProInterface.UI
             // 
             // club_horizontal_face_impact
             // 
+            this.club_horizontal_face_impact.DecimalPlaces = 1;
             this.club_horizontal_face_impact.Location = new System.Drawing.Point(158, 172);
             this.club_horizontal_face_impact.Name = "club_horizontal_face_impact";
             this.club_horizontal_face_impact.Size = new System.Drawing.Size(91, 27);
@@ -279,6 +370,7 @@ namespace GSProInterface.UI
             // 
             // club_vertical_face_impact
             // 
+            this.club_vertical_face_impact.DecimalPlaces = 1;
             this.club_vertical_face_impact.Location = new System.Drawing.Point(158, 109);
             this.club_vertical_face_impact.Name = "club_vertical_face_impact";
             this.club_vertical_face_impact.Size = new System.Drawing.Size(91, 27);
@@ -287,41 +379,116 @@ namespace GSProInterface.UI
             // club_speed_at_impact
             // 
             this.club_speed_at_impact.Location = new System.Drawing.Point(158, 51);
+            this.club_speed_at_impact.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.club_speed_at_impact.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.club_speed_at_impact.Name = "club_speed_at_impact";
             this.club_speed_at_impact.Size = new System.Drawing.Size(91, 27);
             this.club_speed_at_impact.TabIndex = 18;
+            this.club_speed_at_impact.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // club_path
             // 
+            this.club_path.DecimalPlaces = 1;
             this.club_path.Location = new System.Drawing.Point(18, 364);
+            this.club_path.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.club_path.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
             this.club_path.Name = "club_path";
             this.club_path.Size = new System.Drawing.Size(91, 27);
             this.club_path.TabIndex = 17;
             // 
             // club_loft
             // 
+            this.club_loft.DecimalPlaces = 1;
             this.club_loft.Location = new System.Drawing.Point(18, 300);
+            this.club_loft.Maximum = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            this.club_loft.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.club_loft.Name = "club_loft";
             this.club_loft.Size = new System.Drawing.Size(91, 27);
             this.club_loft.TabIndex = 16;
+            this.club_loft.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // club_lie
             // 
+            this.club_lie.DecimalPlaces = 1;
             this.club_lie.Location = new System.Drawing.Point(18, 236);
+            this.club_lie.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.club_lie.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
             this.club_lie.Name = "club_lie";
             this.club_lie.Size = new System.Drawing.Size(91, 27);
             this.club_lie.TabIndex = 15;
             // 
             // club_ftt
             // 
+            this.club_ftt.DecimalPlaces = 1;
             this.club_ftt.Location = new System.Drawing.Point(18, 171);
+            this.club_ftt.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.club_ftt.Minimum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            -2147483648});
             this.club_ftt.Name = "club_ftt";
             this.club_ftt.Size = new System.Drawing.Size(91, 27);
             this.club_ftt.TabIndex = 14;
             // 
             // club_aoa
             // 
+            this.club_aoa.DecimalPlaces = 1;
             this.club_aoa.Location = new System.Drawing.Point(18, 109);
+            this.club_aoa.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.club_aoa.Minimum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            -2147483648});
             this.club_aoa.Name = "club_aoa";
             this.club_aoa.Size = new System.Drawing.Size(91, 27);
             this.club_aoa.TabIndex = 13;
@@ -329,9 +496,24 @@ namespace GSProInterface.UI
             // club_speed
             // 
             this.club_speed.Location = new System.Drawing.Point(18, 51);
+            this.club_speed.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.club_speed.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.club_speed.Name = "club_speed";
             this.club_speed.Size = new System.Drawing.Size(91, 27);
             this.club_speed.TabIndex = 12;
+            this.club_speed.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // club_closure_rate_label
             // 
