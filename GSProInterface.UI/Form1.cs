@@ -135,10 +135,10 @@ namespace GSProInterface.UI
         {
             if(response == null)
             {
-                this.shot_result_label.Text = "No Selection";
+                this.shot_result.Text = "No Selection";
             }else if(response.Code == (int)ResponseCodes.SHOT_SUCCESS)
             {
-                this.shot_result_label.Text = "Success";
+                this.shot_result.Text = "Success";
             }
         }
 
