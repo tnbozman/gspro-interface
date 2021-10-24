@@ -14,8 +14,8 @@ namespace GSProInterface.Models.Request
         [JsonProperty("ContainsClubData")]
         public bool ContainsClubData { get; set; }
         [JsonProperty("LaunchMonitorIsReady")]
-        public bool LaunchMonitorIsReady { get; set; }
+        public bool? LaunchMonitorIsReady { get; set; }
         [JsonProperty("LaunchMonitorBallDetected")]
-        public bool LaunchMonitorBallDetected { get; set; }
+        public bool? LaunchMonitorBallDetected { get; set; }
     }
 }

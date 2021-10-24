@@ -1,19 +1,16 @@
-﻿using GSProInterface.Models;
+﻿using GSProInterface.Adapters;
+using GSProInterface.Models;
 using GSProInterface.Models.enums;
 using GSProInterface.Models.Messages;
 using GSProInterface.Models.Reponse;
 using GSProInterface.Models.Request;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 // This implementation is derived from the following article https://www.codeproject.com/Articles/884583/Advanced-TCP-Socket-Programming-with-NET
 
@@ -178,7 +175,9 @@ namespace GSProInterface.Services
                     msg = SendMessageQueue.Take();
 
                 _logger.LogDebug($"Sending message within sending thread.");
-                var data = JsonConvert.SerializeObject(msg.Payload);
+                
+
+                var data = JsonAdapter.ToJsonString(msg.Payload);
 
                 // Convert the string data to byte data using ASCII encoding.  
                 byte[] byteData = Encoding.ASCII.GetBytes(data);
@@ -233,7 +232,7 @@ namespace GSProInterface.Services
                         var response = Encoding.ASCII.GetString(state.buffer, 0, bytesRead);
                         // Get the rest of the data.  
                         _logger.LogDebug(response);
-                        var payload = JsonConvert.DeserializeObject<ResponseDto>(response);
+                        var payload = JsonAdapter.JsonStringTo<ResponseDto>(response);
                         MessageBase msg;
                         if (payload == null)
                         {

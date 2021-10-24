@@ -20,8 +20,8 @@ namespace GSProInterface.Models.Request
         [JsonProperty("BallData")]
         public BallDataDto BallData { get; set; }
         [JsonProperty("ClubData")]
-        public ClubDataDto ClubData { get; set; }
+        public ClubDataDto? ClubData { get; set; }
         [JsonProperty("ShotDataOptions")]
-        public ShotDataOptionsDto ShotDataOptions { get; set; }
+        public ShotDataOptionsDto? ShotDataOptions { get; set; }
     }
 }

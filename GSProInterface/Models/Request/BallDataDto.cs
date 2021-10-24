@@ -24,6 +24,6 @@ namespace GSProInterface.Models.Request
         [JsonProperty("VLA")]
         public float VLA { get; set; }
         [JsonProperty("CarryDistance")]
-        public float CarryDistance { get; set; }
+        public float? CarryDistance { get; set; }
     }
 }

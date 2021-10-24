@@ -20,9 +20,9 @@ namespace GSProInterface.Adapters
                 Speed = DecimalToFloat(speed),
                 SpinAxis = DecimalToFloat(spinAxis),
                 TotalSpin = DecimalToFloat(totalSpin),
-                SideSpin = 0,
-                BackSpin = 0,
-                CarryDistance = DecimalToFloat(carry),
+                SideSpin = null,
+                BackSpin = null,
+                CarryDistance =  null,
                 HLA = DecimalToFloat(hla),
                 VLA = DecimalToFloat(vla)
             };
@@ -51,12 +51,12 @@ namespace GSProInterface.Adapters
         }
         public static ShotDataDto ShotWithBallDataToShot(BallDataDto ballData)
         {
-            return PrepareShotData(ballData, new ClubDataDto(), ShotOptionsForShot(true, false));
+            return PrepareShotData(ballData, null, ShotOptionsForShot(true, false));
         }
 
         public static ShotDataDto ShotWithClubDataToShot(ClubDataDto clubData)
         {
-            return PrepareShotData(new BallDataDto(), clubData, ShotOptionsForShot(false, true));
+            return PrepareShotData(null, clubData, ShotOptionsForShot(false, true));
         }
 
         public static ShotDataDto ShotWithClubAndBallDataToShot(ClubDataDto clubData, BallDataDto ballData)
