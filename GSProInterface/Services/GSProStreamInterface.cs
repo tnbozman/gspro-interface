@@ -22,11 +22,24 @@ namespace GSProInterface.Services
 
         private readonly ILogger<IGSProInterface> _logger;
 
+        public Status Status => _client.Status;
+
+        public event Action<IGSProInterface> ClientConnected;
+        public event Action<IGSProInterface> ClientDisconnected;
+        public event Action<IGSProInterface, ResponseDto> ShotReceived;
+        public event Action<IGSProInterface, ResponseDto> PlayerInformationReceived;
+        public event Action<IGSProInterface, string> ErrorDetected;
+
         public GSProStreamInterface(ILogger<IGSProInterface> logger, IStreamClient client)
         {
-            _logger = logger;
-             
+            _logger = logger; 
             _client = client;
+
+            _client.ClientConnected += this.OnClientConnected;
+            _client.ClientDisconnected += this.OnClientDisconnected;
+            _client.ShotReceived += this.OnShotReceived;
+            _client.PlayerInformationReceived += this.OnPlayerInformationReceived;
+            _client.ErrorDetected += this.OnErrorDetected;
         }
 
         public void StartClient()
@@ -94,7 +107,42 @@ namespace GSProInterface.Services
             }
 
             _logger.LogDebug($"Shot response was invalid.");
-            throw new ShotException("Response was invalid for a shot.");
+
+            if (response != null)
+            {
+                return new ResponseDto
+                {
+                    Code = (int)ResponseCodes.FAILURE,
+                    Message = "Shot response was null."
+                };
+                
+            }
+            return response;
+        }
+
+        protected virtual void OnClientConnected(IStreamClient client)
+        {
+            if (ClientConnected != null) ClientConnected.Invoke(this);
+        }
+
+        protected virtual void OnClientDisconnected(IStreamClient client)
+        {
+            if (ClientDisconnected != null) ClientDisconnected.Invoke(this);
+        }
+
+        protected virtual void OnShotReceived(IStreamClient client, ResponseDto response)
+        {
+            if (ShotReceived != null) ShotReceived.Invoke(this, response);
+        }
+
+        protected virtual void OnPlayerInformationReceived(IStreamClient client, ResponseDto response)
+        {
+            if (PlayerInformationReceived != null) PlayerInformationReceived.Invoke(this, response);
+        }
+
+        protected virtual void OnErrorDetected(IStreamClient client, string response)
+        {
+            if (ErrorDetected != null) ErrorDetected.Invoke(this, response);
         }
 
     }

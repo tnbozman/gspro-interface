@@ -12,6 +12,43 @@ namespace GSProInterface.Adapters
     public static class ShotAdapter
     {
         private static int ShotNumber = 0;
+
+        public static BallDataDto WinformToBallData(decimal speed, decimal spinAxis, decimal totalSpin, decimal hla, decimal vla, decimal carry)
+        {
+            return new BallDataDto
+            {
+                Speed = DecimalToFloat(speed),
+                SpinAxis = DecimalToFloat(spinAxis),
+                TotalSpin = DecimalToFloat(totalSpin),
+                SideSpin = 0,
+                BackSpin = 0,
+                CarryDistance = DecimalToFloat(carry),
+                HLA = DecimalToFloat(hla),
+                VLA = DecimalToFloat(vla)
+            };
+        }
+
+        public static ClubDataDto WinformToClubData(decimal speed, decimal aoa, decimal ftt, decimal lie, decimal loft, decimal path, decimal speedAtImpact, decimal vfi, decimal hfi, decimal closureRate)
+        {
+            return new ClubDataDto
+            {
+                Speed = DecimalToFloat(speed),
+                AngleOfAttack = DecimalToFloat(aoa),
+                FaceToTarget = DecimalToFloat(ftt),
+                Lie = DecimalToFloat(lie),
+                Loft = DecimalToFloat(loft),
+                Path = DecimalToFloat(path),
+                SpeedAtImpact = DecimalToFloat(speedAtImpact),
+                VerticalFaceImpact = DecimalToFloat(vfi),
+                HorizontalFaceImpact = DecimalToFloat(hfi),
+                ClosureRate = DecimalToFloat(closureRate)
+            };
+        }
+
+        private static float DecimalToFloat(decimal value)
+        {
+            return (float)value;
+        }
         public static ShotDataDto ShotWithBallDataToShot(BallDataDto ballData)
         {
             return PrepareShotData(ballData, new ClubDataDto(), ShotOptionsForShot(true, false));

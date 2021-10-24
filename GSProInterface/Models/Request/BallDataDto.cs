@@ -16,9 +16,9 @@ namespace GSProInterface.Models.Request
         [JsonProperty("TotalSpin")]
         public float TotalSpin { get; set; }
         [JsonProperty("BackSpin")]
-        public float BackSpin { get; set; }
+        public float? BackSpin { get; set; }
         [JsonProperty("SideSpin")]
-        public float SideSpin { get; set; }
+        public float? SideSpin { get; set; }
         [JsonProperty("HLA")]
         public float HLA { get; set; }
         [JsonProperty("VLA")]

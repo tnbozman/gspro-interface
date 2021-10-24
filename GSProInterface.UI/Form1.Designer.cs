@@ -72,13 +72,15 @@ namespace GSProInterface.UI
             this.club_selection = new System.Windows.Forms.TextBox();
             this.shot_result = new System.Windows.Forms.TextBox();
             this.player_handed_label = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.club_selection_label = new System.Windows.Forms.Label();
             this.shot_result_label = new System.Windows.Forms.Label();
             this.hit_shot = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.log_label = new System.Windows.Forms.Label();
+            this.log = new System.Windows.Forms.TextBox();
             this.connection_status = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.connect = new System.Windows.Forms.Button();
             this.lm_status = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.port_label = new System.Windows.Forms.Label();
@@ -86,8 +88,6 @@ namespace GSProInterface.UI
             this.ip_address = new System.Windows.Forms.TextBox();
             this.ip_address_label = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.log = new System.Windows.Forms.TextBox();
-            this.log_label = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ball_carry_distance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball_vla)).BeginInit();
@@ -140,42 +140,42 @@ namespace GSProInterface.UI
             // 
             this.ball_carry_distance.Location = new System.Drawing.Point(15, 367);
             this.ball_carry_distance.Name = "ball_carry_distance";
-            this.ball_carry_distance.Size = new System.Drawing.Size(92, 27);
+            this.ball_carry_distance.Size = new System.Drawing.Size(91, 27);
             this.ball_carry_distance.TabIndex = 11;
             // 
             // ball_vla
             // 
             this.ball_vla.Location = new System.Drawing.Point(15, 303);
             this.ball_vla.Name = "ball_vla";
-            this.ball_vla.Size = new System.Drawing.Size(92, 27);
+            this.ball_vla.Size = new System.Drawing.Size(91, 27);
             this.ball_vla.TabIndex = 10;
             // 
             // ball_hla
             // 
             this.ball_hla.Location = new System.Drawing.Point(15, 239);
             this.ball_hla.Name = "ball_hla";
-            this.ball_hla.Size = new System.Drawing.Size(92, 27);
+            this.ball_hla.Size = new System.Drawing.Size(91, 27);
             this.ball_hla.TabIndex = 9;
             // 
             // ball_total_spin
             // 
-            this.ball_total_spin.Location = new System.Drawing.Point(15, 174);
+            this.ball_total_spin.Location = new System.Drawing.Point(15, 173);
             this.ball_total_spin.Name = "ball_total_spin";
-            this.ball_total_spin.Size = new System.Drawing.Size(92, 27);
+            this.ball_total_spin.Size = new System.Drawing.Size(91, 27);
             this.ball_total_spin.TabIndex = 8;
             // 
             // ball_spin_axis
             // 
             this.ball_spin_axis.Location = new System.Drawing.Point(15, 112);
             this.ball_spin_axis.Name = "ball_spin_axis";
-            this.ball_spin_axis.Size = new System.Drawing.Size(92, 27);
+            this.ball_spin_axis.Size = new System.Drawing.Size(91, 27);
             this.ball_spin_axis.TabIndex = 7;
             // 
             // ball_speed
             // 
-            this.ball_speed.Location = new System.Drawing.Point(13, 54);
+            this.ball_speed.Location = new System.Drawing.Point(13, 53);
             this.ball_speed.Name = "ball_speed";
-            this.ball_speed.Size = new System.Drawing.Size(92, 27);
+            this.ball_speed.Size = new System.Drawing.Size(91, 27);
             this.ball_speed.TabIndex = 6;
             // 
             // ball_carry_distance_label
@@ -267,70 +267,70 @@ namespace GSProInterface.UI
             // 
             this.club_closure_rate.Location = new System.Drawing.Point(158, 236);
             this.club_closure_rate.Name = "club_closure_rate";
-            this.club_closure_rate.Size = new System.Drawing.Size(92, 27);
+            this.club_closure_rate.Size = new System.Drawing.Size(91, 27);
             this.club_closure_rate.TabIndex = 21;
             // 
             // club_horizontal_face_impact
             // 
             this.club_horizontal_face_impact.Location = new System.Drawing.Point(158, 172);
             this.club_horizontal_face_impact.Name = "club_horizontal_face_impact";
-            this.club_horizontal_face_impact.Size = new System.Drawing.Size(92, 27);
+            this.club_horizontal_face_impact.Size = new System.Drawing.Size(91, 27);
             this.club_horizontal_face_impact.TabIndex = 20;
             // 
             // club_vertical_face_impact
             // 
             this.club_vertical_face_impact.Location = new System.Drawing.Point(158, 109);
             this.club_vertical_face_impact.Name = "club_vertical_face_impact";
-            this.club_vertical_face_impact.Size = new System.Drawing.Size(92, 27);
+            this.club_vertical_face_impact.Size = new System.Drawing.Size(91, 27);
             this.club_vertical_face_impact.TabIndex = 19;
             // 
             // club_speed_at_impact
             // 
             this.club_speed_at_impact.Location = new System.Drawing.Point(158, 51);
             this.club_speed_at_impact.Name = "club_speed_at_impact";
-            this.club_speed_at_impact.Size = new System.Drawing.Size(92, 27);
+            this.club_speed_at_impact.Size = new System.Drawing.Size(91, 27);
             this.club_speed_at_impact.TabIndex = 18;
             // 
             // club_path
             // 
             this.club_path.Location = new System.Drawing.Point(18, 364);
             this.club_path.Name = "club_path";
-            this.club_path.Size = new System.Drawing.Size(92, 27);
+            this.club_path.Size = new System.Drawing.Size(91, 27);
             this.club_path.TabIndex = 17;
             // 
             // club_loft
             // 
             this.club_loft.Location = new System.Drawing.Point(18, 300);
             this.club_loft.Name = "club_loft";
-            this.club_loft.Size = new System.Drawing.Size(92, 27);
+            this.club_loft.Size = new System.Drawing.Size(91, 27);
             this.club_loft.TabIndex = 16;
             // 
             // club_lie
             // 
             this.club_lie.Location = new System.Drawing.Point(18, 236);
             this.club_lie.Name = "club_lie";
-            this.club_lie.Size = new System.Drawing.Size(92, 27);
+            this.club_lie.Size = new System.Drawing.Size(91, 27);
             this.club_lie.TabIndex = 15;
             // 
             // club_ftt
             // 
             this.club_ftt.Location = new System.Drawing.Point(18, 171);
             this.club_ftt.Name = "club_ftt";
-            this.club_ftt.Size = new System.Drawing.Size(92, 27);
+            this.club_ftt.Size = new System.Drawing.Size(91, 27);
             this.club_ftt.TabIndex = 14;
             // 
             // club_aoa
             // 
             this.club_aoa.Location = new System.Drawing.Point(18, 109);
             this.club_aoa.Name = "club_aoa";
-            this.club_aoa.Size = new System.Drawing.Size(92, 27);
+            this.club_aoa.Size = new System.Drawing.Size(91, 27);
             this.club_aoa.TabIndex = 13;
             // 
             // club_speed
             // 
             this.club_speed.Location = new System.Drawing.Point(18, 51);
             this.club_speed.Name = "club_speed";
-            this.club_speed.Size = new System.Drawing.Size(92, 27);
+            this.club_speed.Size = new System.Drawing.Size(91, 27);
             this.club_speed.TabIndex = 12;
             // 
             // club_closure_rate_label
@@ -436,10 +436,10 @@ namespace GSProInterface.UI
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(11, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(684, 457);
+            this.tabControl1.Size = new System.Drawing.Size(683, 457);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -450,7 +450,7 @@ namespace GSProInterface.UI
             this.tabPage1.Controls.Add(this.club_selection);
             this.tabPage1.Controls.Add(this.shot_result);
             this.tabPage1.Controls.Add(this.player_handed_label);
-            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.club_selection_label);
             this.tabPage1.Controls.Add(this.shot_result_label);
             this.tabPage1.Controls.Add(this.hit_shot);
             this.tabPage1.Controls.Add(this.groupBox1);
@@ -459,7 +459,7 @@ namespace GSProInterface.UI
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(676, 424);
+            this.tabPage1.Size = new System.Drawing.Size(675, 424);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Shot";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -477,7 +477,7 @@ namespace GSProInterface.UI
             // use_ball_data
             // 
             this.use_ball_data.AutoSize = true;
-            this.use_ball_data.Location = new System.Drawing.Point(496, 66);
+            this.use_ball_data.Location = new System.Drawing.Point(496, 67);
             this.use_ball_data.Name = "use_ball_data";
             this.use_ball_data.Size = new System.Drawing.Size(120, 24);
             this.use_ball_data.TabIndex = 6;
@@ -518,14 +518,14 @@ namespace GSProInterface.UI
             this.player_handed_label.TabIndex = 7;
             this.player_handed_label.Text = "Player";
             // 
-            // label5
+            // club_selection_label
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(487, 328);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 20);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Club";
+            this.club_selection_label.AutoSize = true;
+            this.club_selection_label.Location = new System.Drawing.Point(487, 328);
+            this.club_selection_label.Name = "club_selection_label";
+            this.club_selection_label.Size = new System.Drawing.Size(39, 20);
+            this.club_selection_label.TabIndex = 5;
+            this.club_selection_label.Text = "Club";
             // 
             // shot_result_label
             // 
@@ -540,10 +540,11 @@ namespace GSProInterface.UI
             // 
             this.hit_shot.Location = new System.Drawing.Point(496, 31);
             this.hit_shot.Name = "hit_shot";
-            this.hit_shot.Size = new System.Drawing.Size(140, 29);
+            this.hit_shot.Size = new System.Drawing.Size(139, 29);
             this.hit_shot.TabIndex = 2;
             this.hit_shot.Text = "Hit Shot";
             this.hit_shot.UseVisualStyleBackColor = true;
+            this.hit_shot.Click += new System.EventHandler(this.hit_shot_Click);
             // 
             // groupBox3
             // 
@@ -561,10 +562,29 @@ namespace GSProInterface.UI
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(676, 424);
+            this.tabPage2.Size = new System.Drawing.Size(675, 424);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Log";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // log_label
+            // 
+            this.log_label.AutoSize = true;
+            this.log_label.Location = new System.Drawing.Point(6, 12);
+            this.log_label.Name = "log_label";
+            this.log_label.Size = new System.Drawing.Size(34, 20);
+            this.log_label.TabIndex = 1;
+            this.log_label.Text = "Log";
+            // 
+            // log
+            // 
+            this.log.Enabled = false;
+            this.log.Location = new System.Drawing.Point(6, 35);
+            this.log.Multiline = true;
+            this.log.Name = "log";
+            this.log.ReadOnly = true;
+            this.log.Size = new System.Drawing.Size(665, 380);
+            this.log.TabIndex = 0;
             // 
             // connection_status
             // 
@@ -576,14 +596,15 @@ namespace GSProInterface.UI
             this.connection_status.Text = "Disconnected";
             this.connection_status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // button2
+            // connect
             // 
-            this.button2.Location = new System.Drawing.Point(39, 44);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(94, 29);
-            this.button2.TabIndex = 6;
-            this.button2.Text = "Connect";
-            this.button2.UseVisualStyleBackColor = true;
+            this.connect.Location = new System.Drawing.Point(39, 44);
+            this.connect.Name = "connect";
+            this.connect.Size = new System.Drawing.Size(94, 29);
+            this.connect.TabIndex = 6;
+            this.connect.Text = "Connect";
+            this.connect.UseVisualStyleBackColor = true;
+            this.connect.Click += new System.EventHandler(this.connect_Click);
             // 
             // lm_status
             // 
@@ -594,6 +615,7 @@ namespace GSProInterface.UI
             this.lm_status.TabIndex = 8;
             this.lm_status.Text = "Status";
             this.lm_status.UseVisualStyleBackColor = true;
+            this.lm_status.CheckedChanged += new System.EventHandler(this.lm_status_CheckedChanged);
             // 
             // groupBox4
             // 
@@ -601,12 +623,12 @@ namespace GSProInterface.UI
             this.groupBox4.Controls.Add(this.port);
             this.groupBox4.Controls.Add(this.ip_address);
             this.groupBox4.Controls.Add(this.ip_address_label);
-            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.connect);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.connection_status);
             this.groupBox4.Location = new System.Drawing.Point(702, 41);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 334);
+            this.groupBox4.Size = new System.Drawing.Size(200, 333);
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "TCP Connection";
@@ -614,7 +636,7 @@ namespace GSProInterface.UI
             // port_label
             // 
             this.port_label.AutoSize = true;
-            this.port_label.Location = new System.Drawing.Point(39, 166);
+            this.port_label.Location = new System.Drawing.Point(39, 165);
             this.port_label.Name = "port_label";
             this.port_label.Size = new System.Drawing.Size(93, 20);
             this.port_label.TabIndex = 10;
@@ -630,7 +652,7 @@ namespace GSProInterface.UI
             // 
             // ip_address
             // 
-            this.ip_address.Location = new System.Drawing.Point(39, 126);
+            this.ip_address.Location = new System.Drawing.Point(39, 125);
             this.ip_address.Name = "ip_address";
             this.ip_address.Size = new System.Drawing.Size(125, 27);
             this.ip_address.TabIndex = 8;
@@ -639,7 +661,7 @@ namespace GSProInterface.UI
             // ip_address_label
             // 
             this.ip_address_label.AutoSize = true;
-            this.ip_address_label.Location = new System.Drawing.Point(39, 102);
+            this.ip_address_label.Location = new System.Drawing.Point(39, 101);
             this.ip_address_label.Name = "ip_address_label";
             this.ip_address_label.Size = new System.Drawing.Size(78, 20);
             this.ip_address_label.TabIndex = 7;
@@ -654,25 +676,6 @@ namespace GSProInterface.UI
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Launch Monitor Status";
-            // 
-            // log
-            // 
-            this.log.Enabled = false;
-            this.log.Location = new System.Drawing.Point(6, 35);
-            this.log.Multiline = true;
-            this.log.Name = "log";
-            this.log.ReadOnly = true;
-            this.log.Size = new System.Drawing.Size(664, 380);
-            this.log.TabIndex = 0;
-            // 
-            // log_label
-            // 
-            this.log_label.AutoSize = true;
-            this.log_label.Location = new System.Drawing.Point(6, 12);
-            this.log_label.Name = "log_label";
-            this.log_label.Size = new System.Drawing.Size(34, 20);
-            this.log_label.TabIndex = 1;
-            this.log_label.Text = "Log";
             // 
             // GSPRO_INTERFACE
             // 
@@ -727,7 +730,7 @@ namespace GSProInterface.UI
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label player_handed_label;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label club_selection_label;
         private System.Windows.Forms.Label shot_result_label;
         private System.Windows.Forms.Button hit_shot;
         private System.Windows.Forms.Label ball_speed_label;
@@ -769,7 +772,7 @@ namespace GSProInterface.UI
         private System.Windows.Forms.CheckBox use_ball_data;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox connection_status;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button connect;
         private System.Windows.Forms.CheckBox lm_status;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label port_label;

@@ -1,3 +1,6 @@
+using GSProInterface.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +20,20 @@ namespace GSProInterface.UI
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new GSPRO_INTERFACE());
+            var services = new ServiceCollection();
+            ConfigureServices(services);
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+            IGSProInterface app = serviceProvider.GetService<IGSProInterface>();
+            ILogger<GSPRO_INTERFACE> logger = (ILogger<GSPRO_INTERFACE>) serviceProvider.GetService<ILogger>();
+
+            Application.Run(new GSPRO_INTERFACE(app, logger));
+        }
+
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddLogging(configure => configure.SetMinimumLevel(LogLevel.Error).AddConsole());
+            services.AddTransient<IStreamClient, StreamClientAdvanced>();
+            services.AddTransient<IGSProInterface, GSProStreamInterface>();
         }
     }
 }

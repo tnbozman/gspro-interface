@@ -47,23 +47,23 @@ namespace GSProInterface.Services
         /// <summary>
         /// Raises when the client was disconnected;
         /// </summary>
-        public event Action<StreamClientAdvanced> ClientConnected;
+        public event Action<IStreamClient> ClientConnected;
         /// <summary>
         /// Raises when the client was disconnected;
         /// </summary>
-        public event Action<StreamClientAdvanced> ClientDisconnected;
+        public event Action<IStreamClient> ClientDisconnected;
         /// <summary>
         /// Raises when a new response was received by the remote session client.
         /// </summary>
-        public event Action<StreamClientAdvanced, ResponseDto> ShotReceived;
+        public event Action<IStreamClient, ResponseDto> ShotReceived;
         /// <summary>
         /// Raises when a new response was received by the remote session client.
         /// </summary>
-        public event Action<StreamClientAdvanced, ResponseDto> PlayerInformationReceived;
+        public event Action<IStreamClient, ResponseDto> PlayerInformationReceived;
         /// <summary>
         /// Raises when a new response was received by the remote session client.
         /// </summary>
-        public event Action<StreamClientAdvanced, string> ErrorDetected;
+        public event Action<IStreamClient, string> ErrorDetected;
 
         #endregion
 
@@ -99,6 +99,7 @@ namespace GSProInterface.Services
             connectDone.WaitOne();
             Status = Status.Connected;
             _logger.LogDebug($"Connection to {address}:{port} successful");
+            OnClientConnected();
 
             StartThreads();
         }
@@ -124,10 +125,8 @@ namespace GSProInterface.Services
         {
             ClearBlockingCollection<ResponseMessage>(ReceiveMessageQueue);
             ClearBlockingCollection<ShotMessage>(SendMessageQueue);
-            
             Status = Status.Disconnected;
-            // Release the socket.  
-            client.Shutdown(SocketShutdown.Both);
+
             client.Close();
             OnClientDisconnected();
             _logger.LogDebug($"Connection disconnected.");

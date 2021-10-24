@@ -1,4 +1,5 @@
-﻿using GSProInterface.Models.Reponse;
+﻿using GSProInterface.Models.enums;
+using GSProInterface.Models.Reponse;
 using GSProInterface.Models.Request;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,15 @@ namespace GSProInterface.Services
 {
     public interface IGSProInterface
     {
+
+        Status Status { get; }
+
+        event Action<IGSProInterface> ClientConnected;
+        event Action<IGSProInterface> ClientDisconnected;
+        event Action<IGSProInterface, ResponseDto> ShotReceived;
+        event Action<IGSProInterface, ResponseDto> PlayerInformationReceived;
+        event Action<IGSProInterface, string> ErrorDetected;
+
         void StartClient();
         void StopClient();
         void SendLaunchMonitorStatus(bool LaunchMonitorIsReady);

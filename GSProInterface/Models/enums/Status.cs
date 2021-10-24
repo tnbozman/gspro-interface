@@ -9,8 +9,6 @@ namespace GSProInterface.Models.enums
     public enum Status
     {
         Connected,
-        Disconnected,
-        Validated,
-        InSession
+        Disconnected
     }
 }
