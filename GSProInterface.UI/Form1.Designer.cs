@@ -240,7 +240,7 @@ namespace GSProInterface.UI
             this.ball_spin_axis.Size = new System.Drawing.Size(91, 27);
             this.ball_spin_axis.TabIndex = 7;
             this.ball_spin_axis.Value = new decimal(new int[] {
-            1,
+            0,
             0,
             0,
             0});
