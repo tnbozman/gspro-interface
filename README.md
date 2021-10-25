@@ -14,7 +14,7 @@ The GSProStreamInterface has been implemented in a manner to abstract away the c
 connection and provide a simple communications interface that is capable of interfacing with launch monitor interfaces and 
 to be developed into a winform UI application.
 
-De
+The interface is provided below:
 
 ```
 namespace GSProInterface.Services
