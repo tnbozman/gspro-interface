@@ -20,9 +20,14 @@ namespace GSProInterface.UI
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // create the service collection
             var services = new ServiceCollection();
+            // configure the service collection and service provider
             ConfigureServices(services);
             ServiceProvider serviceProvider = services.BuildServiceProvider();
+            
+            // get the required services to run the Winform application
             IGSProInterface app = serviceProvider.GetService<IGSProInterface>();
             ILogger<GSPRO_INTERFACE> logger = (ILogger<GSPRO_INTERFACE>) serviceProvider.GetService<ILogger>();
 

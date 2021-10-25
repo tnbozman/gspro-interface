@@ -126,6 +126,66 @@ An example can be found below for the PlayerInformationReceived event:
         }
 ```
 
+## Recommended Usage
+
+Within both the TestConsole and Winform UI examples the interface uses dotnet core's dependency injection service.
+This can be seen in the Program.cs file of both of the project's.
+This method is used as it allows easy logger integration and dependency management using interfaces.
+
+### Winform Application Usage
+
+```
+ static void Main()
+        {
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // create the service collection
+            var services = new ServiceCollection();
+            // configure the service collection and service provider
+            ConfigureServices(services);
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+            
+            // get the required services to run the Winform application
+            IGSProInterface app = serviceProvider.GetService<IGSProInterface>();
+            ILogger<GSPRO_INTERFACE> logger = (ILogger<GSPRO_INTERFACE>) serviceProvider.GetService<ILogger>();
+
+            Application.Run(new GSPRO_INTERFACE(app, logger));
+        }
+
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddLogging(configure => configure.SetMinimumLevel(LogLevel.Error).AddConsole());
+            services.AddTransient<IStreamClient, StreamClientAdvanced>();
+            services.AddTransient<IGSProInterface, GSProStreamInterface>();
+        }
+```
+
+### Console Application Usage
+
+```
+        static void Main(string[] args)
+        {
+            // create the service collection
+            var services = new ServiceCollection();
+            // configure the service collection and service provider
+            ConfigureServices(services);
+
+            // get the required services to start the console application
+            ServiceProvider serviceProvider = services.BuildServiceProvider();
+            IGSProInterface app = serviceProvider.GetService<IGSProInterface>();
+
+            StartClient(app);
+        }
+
+        private static void ConfigureServices(ServiceCollection services)
+        {
+            services.AddLogging(configure => configure.SetMinimumLevel(LogLevel.Error).AddConsole());
+            services.AddTransient<IStreamClient, StreamClientAdvanced>();
+            services.AddTransient<IGSProInterface, GSProStreamInterface>();
+        }
+```
 
 # Issues Raised With GSPro
 - Launch Monitor Status

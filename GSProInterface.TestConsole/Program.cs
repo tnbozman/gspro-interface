@@ -11,13 +11,15 @@ namespace GSProInterface.TestConsole
     {
         static void Main(string[] args)
         {
+            // create the service collection
             var services = new ServiceCollection();
+            // configure the service collection and service provider
             ConfigureServices(services);
+
+            // get the required services to start the console application
             ServiceProvider serviceProvider = services.BuildServiceProvider();
             IGSProInterface app = serviceProvider.GetService<IGSProInterface>();
 
-            Console.WriteLine("Shot test application stating");
-            Console.WriteLine("BallData support only, does not support club data");
             StartClient(app);
         }
 
@@ -30,6 +32,8 @@ namespace GSProInterface.TestConsole
 
         private static void StartClient(IGSProInterface gsPro)
         {
+            Console.WriteLine("Shot test application stating");
+            Console.WriteLine("BallData support only, does not support club data");
             try
             {
                 gsPro.StartClient("127.0.0.1", 0921);
