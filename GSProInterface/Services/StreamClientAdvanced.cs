@@ -22,7 +22,7 @@ namespace GSProInterface.Services
         private Thread sendingThread;
 
         private static ManualResetEvent sendDone = new ManualResetEvent(false);
-        //private static ManualResetEvent receiveDone = new ManualResetEvent(false);
+
         private readonly ILogger<IStreamClient> _logger;
         #region Properties
         public string Address { get; private set; }

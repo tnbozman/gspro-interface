@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GSProInterface.TestConsole", "GSProInterface.TestConsole\GSProInterface.TestConsole.csproj", "{511CEA40-97CF-46F5-9720-B333AB31D97F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GSProInterface.TestConsole", "GSProInterface.TestConsole\GSProInterface.TestConsole.csproj", "{511CEA40-97CF-46F5-9720-B333AB31D97F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,12 +22,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ED058DCE-1761-4B03-8342-8BEAE41BC7DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED058DCE-1761-4B03-8342-8BEAE41BC7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED058DCE-1761-4B03-8342-8BEAE41BC7DE}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{ED058DCE-1761-4B03-8342-8BEAE41BC7DE}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{ED058DCE-1761-4B03-8342-8BEAE41BC7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED058DCE-1761-4B03-8342-8BEAE41BC7DE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9473EDCA-EB09-43FC-9B39-A603BE3B49E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9473EDCA-EB09-43FC-9B39-A603BE3B49E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9473EDCA-EB09-43FC-9B39-A603BE3B49E8}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{9473EDCA-EB09-43FC-9B39-A603BE3B49E8}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{9473EDCA-EB09-43FC-9B39-A603BE3B49E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9473EDCA-EB09-43FC-9B39-A603BE3B49E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{49553E6A-7970-49A4-A4AF-3EC366217F96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

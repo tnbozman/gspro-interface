@@ -1,82 +1,135 @@
 # Release
 - 0.0.1 - [Initial Release](https://github.com/tnbozman/gspro-interface/releases/tag/0.01) 
 
-# GSPro Open Connect v1 Documentation
-The following describes how to connect to the GSPro Connect interface with the “Open Connect” protocol.
+# GSPro Client Interface
 
-## Summary
-The overall process breaks down very simple; GSPro Connect opens a socket and listens for an incoming client. Once connected is established a constant 2-way communication continues:
+This project provides a C# implementation of the GSPro Connect Client.
+This has been implemented using a TCP Client Stream using dotnet core 5.
 
-### To GSPro Connect from Launch Monitor client:
-- Shot Data
-- Ready signals
-- Heart beat
-### From GSPro to Client
-- General response from incoming messages (success/failure)
-- Player information
+## Client Interface
+GSProStreamInterface has been implemented to provided to allow Launch Monitor interfaces to be developed and use this 
+interface to communicate with GSPro Connect.
 
-## Socket information
+The GSProStreamInterface has been implemented in a manner to abstract away the complexity of the GSPro Connect socket 
+connection and provide a simple communications interface that is capable of interfacing with launch monitor interfaces and 
+to be developed into a winform UI application.
 
-The socket connection is open and does not require authentication. Note: It is assumed that the launch monitor software is being ran on the same PC as GSPro connect. If this is not the case, firewall and port forwarding may be required
-
-- Port: 0921
-- IP Address: 127.0.0.1
- 
-## Launch Monitor to GSPro Connect JSON
-The JSON required to send a shot is straight forward and readable. The two more important sections are the root properties and BallData object. The other area of important is the shotData properties to describe what data is being sent in.
+De
 
 ```
+namespace GSProInterface.Services
 {
-"DeviceID": "GSPro LM 1.1",  			//required - unqiue per launch monitor / prooject type
-"Units": "Yards",						//default yards
-"ShotNumber": 13,						//required - auto increment from LM
-"APIversion": "1",						//required - "1" is current version
-"BallData": {		
-	"Speed": 147.5,						//required
-	"SpinAxis": -13.2,					//required
-	"TotalSpin": 3250.0,				//required
-	"BackSpin": 2500.0,					//only required if total spin is not sent
-	"SideSpin": -800.0,					//only required if total spin is not sent
-	"HLA": 2.3,							//required
-	"VLA": 14.3,						//required
-	"CarryDistance": 256.5				//optional
-},
-"ClubData": {							
-	"Speed": 0.0,
-	"AngleOfAttack": 0.0,
-	"FaceToTarget": 0.0,
-	"Lie": 0.0,
-	"Loft": 0.0,
-	"Path": 0.0,
-	"SpeedAtImpact": 0.0,
-	"VerticalFaceImpact": 0.0,
-	"HorizontalFaceImpact": 0.0,
-	"ClosureRate": 0.0
-},
-"ShotDataOptions": {
-	"ContainsBallData": true,			//required
-	"ContainsClubData": false,			//required
-	"LaunchMonitorIsReady": true, 		//not required
-	"LaunchMonitorBallDetected": true, 	//not required
-	"IsHeartBeat": false 				//not required
+    public interface IGSProInterface
+    {
+        /// <summary>
+        /// Status of the underlying socket connection
+        /// </summary>
+        Status Status { get; }
+
+        /// <summary>
+        ///  signals the client has successfully established a socket connection to GSPro Connect
+        /// </summary>
+        event Action<IGSProInterface> ClientConnected;
+        /// <summary>
+        /// signals that the socket to GSPro Connect has been disconnected
+        /// </summary>
+        event Action<IGSProInterface> ClientDisconnected;
+        /// <summary>
+        /// signals that a response to a shot has been received from GSPro Connect
+        /// NOTE: This event is not thread safe see details below
+        /// </summary>
+        event Action<IGSProInterface, ResponseDto> ShotReceived;
+        /// <summary>
+        /// signals that a response to play information change in GSPro has been received from GSPro Connect
+        /// NOTE: This event is not thread safe see details below
+        /// </summary>
+        event Action<IGSProInterface, ResponseDto> PlayerInformationReceived;
+        /// <summary>
+        /// An error has occured
+        /// NOTE: This event is not thread safe see details below
+        /// </summary>
+        event Action<IGSProInterface, string> ErrorDetected;
+
+        /// <summary>
+        /// Attempt to make a connection to GSPro Connect using the provided ip address and port
+        /// Successful connection will raise the ClientConnected event
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="port"></param>
+        void StartClient(string address, int port);
+        /// <summary>
+        /// Successful disconnection will raise the ClientDisconnected event
+        /// </summary>
+        void StopClient();
+        /// <summary>
+        /// Send a launch monitor status update to GSPro Connect
+        /// </summary>
+        /// <param name="launchMonitorIsReady"></param>
+        void SendLaunchMonitorStatus(bool LaunchMonitorIsReady);
+        /// <summary>
+        /// Send a shot to GSPro Connect that contains ball data and retrieve the shot's GSPro response
+        /// </summary>
+        /// <param name="ballData"></param>
+        /// <returns></returns>
+        ResponseDto SendBallData(BallDataDto ballData);
+        /// <summary>
+        /// Send a shot to GSPro Connect that contains club data and retrieve the shot's GSPro response
+        /// </summary>
+        /// <param name="clubData"></param>
+        /// <returns></returns>
+        ResponseDto SendClubData(ClubDataDto shotData);
+        /// <summary>
+        /// Send a shot to GSPro Connect that contains ball and club data and retrieve the shot's GSPro response
+        /// </summary>
+        /// <param name="ballData"></param>
+        /// <param name="clubData"></param>
+        /// <returns></returns>
+        ResponseDto SendBallAndClubData(BallDataDto ballData, ClubDataDto shotData);
+    }
 }
-	}
 ```
-## GSPro Connect to Launch Monitor JSON
-The response from GSPro Connect is currently very simple. The two common responses you will receive is 1) 200 response confirming that we received and processed your JSON and 2) Player information for handedness and club, The latter is typically used for Launch monitors that need to switch between full strike clubs and putting.
+
+## Thread Events
+
+The follow events are not thread safe and need to be marshalled to the main thread:
+- PlayerInformationReceived (receive thread)
+- ShotReceived (recieve thread)
+- ErrorDetected (could be any thread - send, receive, main)
+
+An example can be found below for the PlayerInformationReceived event:
 
 ```
-{
-	"Code": 201,
-	"Message": "GSPro Player Information",
-	"Player": {
-		"Handed": "RH",
-		"Club": "DR"
-	}
-}
-```
-Additional documentation will be added to describe additional response codes. Currently:
+        delegate void SetPlayerInformationCallback(ResponseDto response);
 
-- 200: Shot received successfully
-- 201: Player information
-- 501/5XX: Failure occurred
+        private void SetPlayerInformation(ResponseDto response)
+        {
+            if (this.log.InvokeRequired)
+            {
+                SetPlayerInformationCallback d = new SetPlayerInformationCallback(SetPlayerInformation);
+                this.Invoke(d, new object[] { response });
+            }
+            else
+            {
+                if (response != null && response.Player != null)
+                {
+                    if (!string.IsNullOrEmpty(response.Player.Club))
+                        this.club_selection.Text = response.Player.Club;
+                    if (!string.IsNullOrEmpty(response.Player.Handed))
+                        this.player_handed.Text = response.Player.Handed;
+
+                }
+            }
+        }
+
+        private void OnPlayerInformationChange(IGSProInterface intf, ResponseDto response){
+            SetPlayerInformation(response);
+        }
+```
+
+
+# Issues Raised With GSPro
+- Launch Monitor Status
+- Passing and Id in the requests which is returned in the responses so that response can be matched to requests
+- Socket State Management (GSPro currently does support disconnect/reconnect)
+- Shot Reponse message error in format
+- Launch Monitor Status 
