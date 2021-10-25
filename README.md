@@ -1,5 +1,8 @@
+# Release
+- 0.0.1 - [Initial Release](https://github.com/tnbozman/gspro-interface/releases/tag/0.01) 
+
 # GSPro Open Connect v1 Documentation
-The following describes how to connect to the GSPro Connect interface with the ìOpen Connectî protocol.
+The following describes how to connect to the GSPro Connect interface with the ‚ÄúOpen Connect‚Äù protocol.
 
 ## Summary
 The overall process breaks down very simple; GSPro Connect opens a socket and listens for an incoming client. Once connected is established a constant 2-way communication continues:
