@@ -239,11 +239,6 @@ namespace GSProInterface.UI
             this.ball_spin_axis.Name = "ball_spin_axis";
             this.ball_spin_axis.Size = new System.Drawing.Size(91, 27);
             this.ball_spin_axis.TabIndex = 7;
-            this.ball_spin_axis.Value = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
             // 
             // ball_speed
             // 
@@ -659,6 +654,8 @@ namespace GSProInterface.UI
             // use_ball_data
             // 
             this.use_ball_data.AutoSize = true;
+            this.use_ball_data.Checked = true;
+            this.use_ball_data.CheckState = System.Windows.Forms.CheckState.Checked;
             this.use_ball_data.Location = new System.Drawing.Point(496, 67);
             this.use_ball_data.Name = "use_ball_data";
             this.use_ball_data.Size = new System.Drawing.Size(120, 24);
