@@ -38,7 +38,17 @@ namespace GSProInterface.UI
             if(_app.Status == Status.Disconnected)
             {
                 this.connection_status.Text = "Connecting...";
-                _app.StartClient();
+                int port = 0;
+                if(int.TryParse(this.port.Text, out port))
+                {
+                    _app.StartClient(this.ip_address.Text, port);
+                }
+                else
+                {
+                    this.connection_status.Text = "port is invalid";
+                }
+                
+
             }
             else
             {
@@ -49,9 +59,25 @@ namespace GSProInterface.UI
             
         }
 
+        delegate void SetErrorCallback(string errorMsg);
+
+        private void SetError(string errorMsg)
+        {
+            if (this.log.InvokeRequired)
+            {
+                SetErrorCallback d = new SetErrorCallback(SetError);
+                this.Invoke(d, new object[] { errorMsg });
+            }
+            else
+            {
+                this.log.AppendText($"{errorMsg}\n");
+            }
+        }
+
+
         private void OnError(IGSProInterface intf, string errorMessage)
         {
-            this.log.AppendText($"{errorMessage}\n");
+            SetError(errorMessage);
         }
 
         private void OnConnected(IGSProInterface intf)
@@ -66,15 +92,30 @@ namespace GSProInterface.UI
             this.connect.Text = "Connect";
         }
 
-        private void OnPlayerInformationChange(IGSProInterface intf, ResponseDto response){
-            if(response != null && response.Player != null)
-            {
-                if (!string.IsNullOrEmpty(response.Player.Club))
-                    this.club_selection.Text = response.Player.Club;
-                if (!string.IsNullOrEmpty(response.Player.Handed))
-                    this.player_handed.Text = response.Player.Handed;
+        delegate void SetPlayerInformationCallback(ResponseDto response);
 
+        private void SetPlayerInformation(ResponseDto response)
+        {
+            if (this.log.InvokeRequired)
+            {
+                SetPlayerInformationCallback d = new SetPlayerInformationCallback(SetPlayerInformation);
+                this.Invoke(d, new object[] { response });
             }
+            else
+            {
+                if (response != null && response.Player != null)
+                {
+                    if (!string.IsNullOrEmpty(response.Player.Club))
+                        this.club_selection.Text = response.Player.Club;
+                    if (!string.IsNullOrEmpty(response.Player.Handed))
+                        this.player_handed.Text = response.Player.Handed;
+
+                }
+            }
+        }
+
+        private void OnPlayerInformationChange(IGSProInterface intf, ResponseDto response){
+            SetPlayerInformation(response);
         }
 
         private void lm_status_CheckedChanged(object sender, EventArgs e)
