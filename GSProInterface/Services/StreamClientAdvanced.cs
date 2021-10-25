@@ -21,9 +21,8 @@ namespace GSProInterface.Services
         private Thread receivingThread;
         private Thread sendingThread;
 
-        private static ManualResetEvent connectDone = new ManualResetEvent(false);
         private static ManualResetEvent sendDone = new ManualResetEvent(false);
-        private static ManualResetEvent receiveDone = new ManualResetEvent(false);
+        //private static ManualResetEvent receiveDone = new ManualResetEvent(false);
         private readonly ILogger<IStreamClient> _logger;
         #region Properties
         public string Address { get; private set; }
@@ -83,22 +82,40 @@ namespace GSProInterface.Services
         {
             Address = address;
             Port = port;
-            IPAddress ipAddress = IPAddress.Parse(address);
-            IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
-            client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            client.Blocking = true;
-            //IPEndPoint remoteEP = new IPEndPoint(SessionSingleton.IpAddress, SessionSingleton.Port);
-            // Create a TCP/IP socket.  
-            //Socket client = new Socket(SessionSingleton.IpAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            IPAddress ipAddress = null;
+            if (!IPAddress.TryParse(address, out ipAddress)){
+                var errorMsg = "IP Address is invalid";
+                _logger.LogDebug(errorMsg);
+                OnErrorDetected(errorMsg);
+                return;
+            }
 
-            // Connect to the remote endpoint.  
-            client.BeginConnect(remoteEP, new AsyncCallback(ConnectCallback), client);
-            connectDone.WaitOne();
-            Status = Status.Connected;
-            _logger.LogDebug($"Connection to {address}:{port} successful");
-            OnClientConnected();
+            if(port < 1 || port > 65535)
+            {
+                var errorMsg = "Port is out of range (1 to 65535)";
+                _logger.LogDebug(errorMsg);
+                OnErrorDetected(errorMsg);
+                return;
+            }
 
-            StartThreads();
+            try
+            {
+                IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
+                client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+                client.Blocking = true;
+
+                // Connect to the remote endpoint.  
+                client.Connect(remoteEP);
+                Status = Status.Connected;
+                _logger.LogDebug($"Connection to {address}:{port} successful");
+                OnClientConnected();
+
+                StartThreads();
+            }catch(Exception ex)
+            {
+                _logger.LogError("Failed to connect to GSPro Connect: Make sure GSPro Connect has been started and is waiting for connection");
+                OnErrorDetected($"Failed to connect to GSPro: {ex.Message}");
+            }
         }
 
         private void StartThreads()
@@ -245,12 +262,10 @@ namespace GSProInterface.Services
                         }
                         OnMessageReceived(msg);
                         // Signal that all bytes have been received.  
-                        receiveDone.Set();
                     }
 
-                    receiveDone.WaitOne();
                     _logger.LogDebug($"Message Received.");
-                    Thread.Sleep(100);
+
                 }
             }catch(Exception ex)
             {
@@ -260,27 +275,6 @@ namespace GSProInterface.Services
         #endregion
 
         #region Callbacks
-        private void ConnectCallback(IAsyncResult connectionResult)
-        {
-            try
-            {
-                // Retrieve the socket from the state object.  
-                Socket client = (Socket)connectionResult.AsyncState;
-
-                // Complete the connection.  
-                client.EndConnect(connectionResult);
-
-                _logger.LogDebug("Connection to {0} achieved.", client.RemoteEndPoint.ToString());
-
-                // Signal that the connection has been made.  
-                connectDone.Set();
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Failed to connect to GSPro Connect: Make sure GSPro Connect has been started and is waiting for connection");
-                _logger.LogError(e.ToString());
-            }
-        }
         
         private void SendCallback(IAsyncResult sendResult)
         {

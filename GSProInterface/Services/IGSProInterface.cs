@@ -21,7 +21,7 @@ namespace GSProInterface.Services
         event Action<IGSProInterface, ResponseDto> PlayerInformationReceived;
         event Action<IGSProInterface, string> ErrorDetected;
 
-        void StartClient();
+        void StartClient(string address, int port);
         void StopClient();
         void SendLaunchMonitorStatus(bool LaunchMonitorIsReady);
         ResponseDto SendBallData(BallDataDto ballData);

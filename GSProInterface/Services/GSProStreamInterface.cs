@@ -42,18 +42,10 @@ namespace GSProInterface.Services
             _client.ErrorDetected += this.OnErrorDetected;
         }
 
-        public void StartClient()
+        public void StartClient(string address, int port)
         {
-            try
-            {
-                _logger.LogDebug($"Attempting to connect to {Constants.IP_ADDRESS}:{Constants.PORT}");
-                _client.Connect(Constants.IP_ADDRESS, Constants.PORT);                    
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError($"Failed to connect to client.");
-                throw new ConnectionException("Failed to connect to GSPro", ex);
-            }
+            _logger.LogDebug($"Attempting to connect to {address}:{port}");
+            _client.Connect(address, port);                    
         }
 
         public void StopClient()

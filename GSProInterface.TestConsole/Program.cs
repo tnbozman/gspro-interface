@@ -32,7 +32,7 @@ namespace GSProInterface.TestConsole
         {
             try
             {
-                gsPro.StartClient();
+                gsPro.StartClient("127.0.0.1", 0921);
                 try
                 {
                     gsPro.SendLaunchMonitorStatus(true);
