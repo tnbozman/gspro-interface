@@ -10,3 +10,5 @@ GSProInterface/bin/
 GSProInterface.Test/bin/
 GSProInterface.UI/bin/
 .vs/
+GarminInterface/bin/
+GarminInterface/obj/

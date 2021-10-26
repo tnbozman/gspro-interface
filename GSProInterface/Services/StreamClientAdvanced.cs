@@ -18,6 +18,7 @@ namespace GSProInterface.Services
 {
     public class StreamClientAdvanced : IStreamClient
     {
+        private int threadTimeout = 500; // ms
         private Thread receivingThread;
         private Thread sendingThread;
 
@@ -83,14 +84,15 @@ namespace GSProInterface.Services
             Address = address;
             Port = port;
             IPAddress ipAddress = null;
-            if (!IPAddress.TryParse(address, out ipAddress)){
+            if (!IPAddress.TryParse(address, out ipAddress))
+            {
                 var errorMsg = "IP Address is invalid";
                 _logger.LogDebug(errorMsg);
                 OnErrorDetected(errorMsg);
                 return;
             }
 
-            if(port < 1 || port > 65535)
+            if (port < 1 || port > 65535)
             {
                 var errorMsg = "Port is out of range (1 to 65535)";
                 _logger.LogDebug(errorMsg);
@@ -103,6 +105,9 @@ namespace GSProInterface.Services
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress, port);
                 client = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 client.Blocking = true;
+                client.LingerState = new LingerOption(true, 1);
+                client.ReceiveTimeout = threadTimeout;
+
 
                 // Connect to the remote endpoint.  
                 client.Connect(remoteEP);
@@ -111,7 +116,8 @@ namespace GSProInterface.Services
                 OnClientConnected();
 
                 StartThreads();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 _logger.LogError("Failed to connect to GSPro Connect: Make sure GSPro Connect has been started and is waiting for connection");
                 OnErrorDetected($"Failed to connect to GSPro: {ex.Message}");
@@ -137,13 +143,27 @@ namespace GSProInterface.Services
         /// </summary>
         public void Disconnect()
         {
-            ClearBlockingCollection<ResponseMessage>(ReceiveMessageQueue);
-            ClearBlockingCollection<ShotMessage>(SendMessageQueue);
+            // set the status to disconnected to kill the send and recieve threads
             Status = Status.Disconnected;
+            // wait for the threads to be killed
+            while (receivingThread.IsAlive || sendingThread.IsAlive) ;
+            try
+            {
+                client.Shutdown(SocketShutdown.Both);
+                client.Disconnect(false);
+                client.Close();
+                client.Dispose();
+                OnClientDisconnected();
+                ClearBlockingCollection<ResponseMessage>(ReceiveMessageQueue);
+                ClearBlockingCollection<ShotMessage>(SendMessageQueue);
+                _logger.LogDebug($"Connection disconnected.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Failed to disconnect from GSPro Connect");
+                OnErrorDetected($"Failed to disconnect to GSPro: {ex.Message}");
+            }
 
-            client.Close();
-            OnClientDisconnected();
-            _logger.LogDebug($"Connection disconnected.");
         }
 
         private void ClearBlockingCollection<T>(BlockingCollection<T> collection)
@@ -164,16 +184,16 @@ namespace GSProInterface.Services
         public ResponseDto Receive()
         {
 
-                _logger.LogDebug($"Receiving message.");
-                ResponseMessage msg;
-                if(ReceiveMessageQueue.TryTake(out msg, 10000))
-                {
-                    _logger.LogDebug($"Received message.");
-                    return msg.Payload;
-                }
+            _logger.LogDebug($"Receiving message.");
+            ResponseMessage msg;
+            if (ReceiveMessageQueue.TryTake(out msg, 10000))
+            {
+                _logger.LogDebug($"Received message.");
+                return msg.Payload;
+            }
 
-                _logger.LogDebug($"No message found to return within receive message.");
-                return null;            
+            _logger.LogDebug($"No message found to return within receive message.");
+            return null;
         }
 
         #endregion
@@ -186,13 +206,19 @@ namespace GSProInterface.Services
             ShotMessage msg = null;
             while (Status != Status.Disconnected)
             {
-                
+
                 // if the msg is null make a blocking take, if msg is not null due to re-attempt reuse the msg
-                if(msg == null)
-                    msg = SendMessageQueue.Take();
+                if (msg == null)
+                {
+                    if (!SendMessageQueue.TryTake(out msg, threadTimeout))
+                    {
+                        _logger.LogDebug($"Send queue read/take failed.");
+                        continue;
+                    }
+                }
 
                 _logger.LogDebug($"Sending message within sending thread.");
-                
+
 
                 var data = JsonAdapter.ToJsonString(msg.Payload);
 
@@ -210,7 +236,7 @@ namespace GSProInterface.Services
                     msg = null;
                     _logger.LogDebug($"Message sent.");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     var errMsg = $"Send Attempt {reattempts} failed.";
                     _logger.LogError(errMsg);
@@ -225,15 +251,16 @@ namespace GSProInterface.Services
                 }
             }
             Thread.Sleep(100);
-            
+
         }
         // https://docs.microsoft.com/en-us/dotnet/api/system.net.sockets.socket.receive?view=net-5.0
         private void ReceivingMethod(object obj)
         {
-            try
+
+            _logger.LogDebug($"Receiving thread started.");
+            while (Status != Status.Disconnected)
             {
-                _logger.LogDebug($"Receiving thread started.");
-                while (Status != Status.Disconnected)
+                try
                 {
                     // Create the state object.  
                     StateObject state = new StateObject();
@@ -265,17 +292,27 @@ namespace GSProInterface.Services
                     }
 
                     _logger.LogDebug($"Message Received.");
+                }
+                catch (Exception ex)
+                {
+                    if (ex.GetType() != typeof(SocketException))
+                    {
+                        Status = Status.Disconnected;
+                    }
+                    else
+                    {
+                        _logger.LogError(ex.ToString());
+                    }
 
                 }
-            }catch(Exception ex)
-            {
-                _logger.LogError(ex.ToString());
+
             }
+
         }
         #endregion
 
         #region Callbacks
-        
+
         private void SendCallback(IAsyncResult sendResult)
         {
             try
@@ -331,11 +368,12 @@ namespace GSProInterface.Services
 
         protected virtual void OnResponseReceived(ResponseDto response)
         {
-            if(response.Code == (int)ResponseCodes.SHOT_SUCCESS)
+            if (response.Code == (int)ResponseCodes.SHOT_SUCCESS)
             {
                 _logger.LogDebug($"ShotReceived triggered.");
                 if (ShotReceived != null) ShotReceived(this, response);
-            }else if (response.Code == (int)ResponseCodes.PLAYER_INFO)
+            }
+            else if (response.Code == (int)ResponseCodes.PLAYER_INFO)
             {
                 _logger.LogDebug($"PlayerInformationReceived triggered.");
                 if (PlayerInformationReceived != null) PlayerInformationReceived(this, response);
@@ -345,7 +383,7 @@ namespace GSProInterface.Services
                 _logger.LogDebug($"ErrorDetected triggered from OnResponseReceived.");
                 if (ErrorDetected != null) ErrorDetected(this, $"GSPro Error Code Received Code: {response.Code} - Message = {response.Message}");
             }
-            
+
         }
 
         protected virtual void OnErrorDetected(string errorMessage)
