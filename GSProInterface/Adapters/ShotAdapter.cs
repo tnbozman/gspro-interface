@@ -13,7 +13,7 @@ namespace GSProInterface.Adapters
     {
         private static int ShotNumber = 0;
 
-        public static BallDataDto WinformToBallData(decimal speed, decimal spinAxis, decimal totalSpin, decimal hla, decimal vla, decimal carry)
+        public static BallDataDto WinformToBallData(decimal speed, decimal spinAxis, decimal totalSpin, decimal hla, decimal vla)
         {
             return new BallDataDto
             {

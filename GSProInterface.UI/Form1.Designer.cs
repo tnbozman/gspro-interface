@@ -30,13 +30,11 @@ namespace GSProInterface.UI
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ball_carry_distance = new System.Windows.Forms.NumericUpDown();
             this.ball_vla = new System.Windows.Forms.NumericUpDown();
             this.ball_hla = new System.Windows.Forms.NumericUpDown();
             this.ball_total_spin = new System.Windows.Forms.NumericUpDown();
             this.ball_spin_axis = new System.Windows.Forms.NumericUpDown();
             this.ball_speed = new System.Windows.Forms.NumericUpDown();
-            this.ball_carry_distance_label = new System.Windows.Forms.Label();
             this.ball_vla_label = new System.Windows.Forms.Label();
             this.ball_hla_label = new System.Windows.Forms.Label();
             this.ball_total_spin_label = new System.Windows.Forms.Label();
@@ -89,7 +87,6 @@ namespace GSProInterface.UI
             this.ip_address_label = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ball_carry_distance)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball_vla)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball_hla)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball_total_spin)).BeginInit();
@@ -115,13 +112,11 @@ namespace GSProInterface.UI
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.ball_carry_distance);
             this.groupBox1.Controls.Add(this.ball_vla);
             this.groupBox1.Controls.Add(this.ball_hla);
             this.groupBox1.Controls.Add(this.ball_total_spin);
             this.groupBox1.Controls.Add(this.ball_spin_axis);
             this.groupBox1.Controls.Add(this.ball_speed);
-            this.groupBox1.Controls.Add(this.ball_carry_distance_label);
             this.groupBox1.Controls.Add(this.ball_vla_label);
             this.groupBox1.Controls.Add(this.ball_hla_label);
             this.groupBox1.Controls.Add(this.ball_total_spin_label);
@@ -131,33 +126,10 @@ namespace GSProInterface.UI
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox1.Size = new System.Drawing.Size(128, 407);
+            this.groupBox1.Size = new System.Drawing.Size(128, 347);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ball Data";
-            // 
-            // ball_carry_distance
-            // 
-            this.ball_carry_distance.DecimalPlaces = 1;
-            this.ball_carry_distance.Location = new System.Drawing.Point(15, 367);
-            this.ball_carry_distance.Maximum = new decimal(new int[] {
-            400,
-            0,
-            0,
-            0});
-            this.ball_carry_distance.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.ball_carry_distance.Name = "ball_carry_distance";
-            this.ball_carry_distance.Size = new System.Drawing.Size(91, 27);
-            this.ball_carry_distance.TabIndex = 11;
-            this.ball_carry_distance.Value = new decimal(new int[] {
-            220,
-            0,
-            0,
-            0});
             // 
             // ball_vla
             // 
@@ -165,11 +137,6 @@ namespace GSProInterface.UI
             this.ball_vla.Location = new System.Drawing.Point(15, 303);
             this.ball_vla.Maximum = new decimal(new int[] {
             60,
-            0,
-            0,
-            0});
-            this.ball_vla.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});
@@ -208,11 +175,6 @@ namespace GSProInterface.UI
             0,
             0,
             0});
-            this.ball_total_spin.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.ball_total_spin.Name = "ball_total_spin";
             this.ball_total_spin.Size = new System.Drawing.Size(91, 27);
             this.ball_total_spin.TabIndex = 8;
@@ -244,7 +206,7 @@ namespace GSProInterface.UI
             // 
             this.ball_speed.Location = new System.Drawing.Point(13, 53);
             this.ball_speed.Maximum = new decimal(new int[] {
-            200,
+            300,
             0,
             0,
             0});
@@ -257,19 +219,10 @@ namespace GSProInterface.UI
             this.ball_speed.Size = new System.Drawing.Size(91, 27);
             this.ball_speed.TabIndex = 6;
             this.ball_speed.Value = new decimal(new int[] {
-            147,
+            150,
             0,
             0,
             0});
-            // 
-            // ball_carry_distance_label
-            // 
-            this.ball_carry_distance_label.AutoSize = true;
-            this.ball_carry_distance_label.Location = new System.Drawing.Point(10, 344);
-            this.ball_carry_distance_label.Name = "ball_carry_distance_label";
-            this.ball_carry_distance_label.Size = new System.Drawing.Size(104, 20);
-            this.ball_carry_distance_label.TabIndex = 5;
-            this.ball_carry_distance_label.Text = "Carry Distance";
             // 
             // ball_vla_label
             // 
@@ -342,7 +295,7 @@ namespace GSProInterface.UI
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.groupBox2.Size = new System.Drawing.Size(327, 404);
+            this.groupBox2.Size = new System.Drawing.Size(327, 344);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Club Data";
@@ -396,7 +349,7 @@ namespace GSProInterface.UI
             // club_path
             // 
             this.club_path.DecimalPlaces = 1;
-            this.club_path.Location = new System.Drawing.Point(18, 364);
+            this.club_path.Location = new System.Drawing.Point(161, 300);
             this.club_path.Maximum = new decimal(new int[] {
             15,
             0,
@@ -549,7 +502,7 @@ namespace GSProInterface.UI
             // club_path_label
             // 
             this.club_path_label.AutoSize = true;
-            this.club_path_label.Location = new System.Drawing.Point(15, 341);
+            this.club_path_label.Location = new System.Drawing.Point(158, 277);
             this.club_path_label.Name = "club_path_label";
             this.club_path_label.Size = new System.Drawing.Size(37, 20);
             this.club_path_label.TabIndex = 5;
@@ -603,7 +556,7 @@ namespace GSProInterface.UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(39, 245);
+            this.label1.Location = new System.Drawing.Point(39, 229);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(128, 20);
             this.label1.TabIndex = 2;
@@ -616,7 +569,7 @@ namespace GSProInterface.UI
             this.tabControl1.Location = new System.Drawing.Point(11, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(683, 457);
+            this.tabControl1.Size = new System.Drawing.Size(685, 394);
             this.tabControl1.TabIndex = 3;
             // 
             // tabPage1
@@ -636,7 +589,7 @@ namespace GSProInterface.UI
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(675, 424);
+            this.tabPage1.Size = new System.Drawing.Size(677, 361);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Shot";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -665,14 +618,14 @@ namespace GSProInterface.UI
             // 
             // player_handed
             // 
-            this.player_handed.Location = new System.Drawing.Point(575, 361);
+            this.player_handed.Location = new System.Drawing.Point(575, 302);
             this.player_handed.Name = "player_handed";
             this.player_handed.Size = new System.Drawing.Size(86, 27);
             this.player_handed.TabIndex = 9;
             // 
             // club_selection
             // 
-            this.club_selection.Location = new System.Drawing.Point(575, 321);
+            this.club_selection.Location = new System.Drawing.Point(575, 262);
             this.club_selection.Name = "club_selection";
             this.club_selection.Size = new System.Drawing.Size(86, 27);
             this.club_selection.TabIndex = 8;
@@ -691,7 +644,7 @@ namespace GSProInterface.UI
             // player_handed_label
             // 
             this.player_handed_label.AutoSize = true;
-            this.player_handed_label.Location = new System.Drawing.Point(487, 368);
+            this.player_handed_label.Location = new System.Drawing.Point(487, 309);
             this.player_handed_label.Name = "player_handed_label";
             this.player_handed_label.Size = new System.Drawing.Size(49, 20);
             this.player_handed_label.TabIndex = 7;
@@ -700,7 +653,7 @@ namespace GSProInterface.UI
             // club_selection_label
             // 
             this.club_selection_label.AutoSize = true;
-            this.club_selection_label.Location = new System.Drawing.Point(487, 328);
+            this.club_selection_label.Location = new System.Drawing.Point(487, 269);
             this.club_selection_label.Name = "club_selection_label";
             this.club_selection_label.Size = new System.Drawing.Size(39, 20);
             this.club_selection_label.TabIndex = 5;
@@ -727,7 +680,7 @@ namespace GSProInterface.UI
             // 
             // groupBox3
             // 
-            this.groupBox3.Location = new System.Drawing.Point(470, 284);
+            this.groupBox3.Location = new System.Drawing.Point(470, 224);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(203, 127);
             this.groupBox3.TabIndex = 11;
@@ -767,7 +720,7 @@ namespace GSProInterface.UI
             // 
             // connection_status
             // 
-            this.connection_status.Location = new System.Drawing.Point(39, 268);
+            this.connection_status.Location = new System.Drawing.Point(39, 252);
             this.connection_status.Name = "connection_status";
             this.connection_status.ReadOnly = true;
             this.connection_status.Size = new System.Drawing.Size(125, 27);
@@ -788,7 +741,7 @@ namespace GSProInterface.UI
             // lm_status
             // 
             this.lm_status.AutoSize = true;
-            this.lm_status.Location = new System.Drawing.Point(50, 31);
+            this.lm_status.Location = new System.Drawing.Point(50, 26);
             this.lm_status.Name = "lm_status";
             this.lm_status.Size = new System.Drawing.Size(71, 24);
             this.lm_status.TabIndex = 8;
@@ -805,9 +758,9 @@ namespace GSProInterface.UI
             this.groupBox4.Controls.Add(this.connect);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.connection_status);
-            this.groupBox4.Location = new System.Drawing.Point(702, 41);
+            this.groupBox4.Location = new System.Drawing.Point(702, 38);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 333);
+            this.groupBox4.Size = new System.Drawing.Size(200, 289);
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "TCP Connection";
@@ -849,9 +802,9 @@ namespace GSProInterface.UI
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.lm_status);
-            this.groupBox5.Location = new System.Drawing.Point(698, 389);
+            this.groupBox5.Location = new System.Drawing.Point(702, 337);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 71);
+            this.groupBox5.Size = new System.Drawing.Size(200, 55);
             this.groupBox5.TabIndex = 10;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Launch Monitor Status";
@@ -860,7 +813,7 @@ namespace GSProInterface.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(914, 468);
+            this.ClientSize = new System.Drawing.Size(914, 412);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox5);
@@ -869,7 +822,6 @@ namespace GSProInterface.UI
             this.Text = "GSP Pro Interface";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ball_carry_distance)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball_vla)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball_hla)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ball_total_spin)).EndInit();
@@ -913,7 +865,6 @@ namespace GSProInterface.UI
         private System.Windows.Forms.Label shot_result_label;
         private System.Windows.Forms.Button hit_shot;
         private System.Windows.Forms.Label ball_speed_label;
-        private System.Windows.Forms.Label ball_carry_distance_label;
         private System.Windows.Forms.Label ball_vla_label;
         private System.Windows.Forms.Label ball_hla_label;
         private System.Windows.Forms.Label ball_total_spin_label;
@@ -928,7 +879,6 @@ namespace GSProInterface.UI
         private System.Windows.Forms.Label club_path_label;
         private System.Windows.Forms.Label club_loft_label;
         private System.Windows.Forms.Label club_closure_rate_label;
-        private System.Windows.Forms.NumericUpDown ball_carry_distance;
         private System.Windows.Forms.NumericUpDown ball_vla;
         private System.Windows.Forms.NumericUpDown ball_hla;
         private System.Windows.Forms.NumericUpDown ball_total_spin;

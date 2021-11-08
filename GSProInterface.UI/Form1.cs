@@ -133,8 +133,7 @@ namespace GSProInterface.UI
                                                                         spinAxis: this.ball_spin_axis.Value,
                                                                         totalSpin: this.ball_total_spin.Value,
                                                                         hla: this.ball_hla.Value,
-                                                                        vla: this.ball_vla.Value,
-                                                                        carry: this.ball_carry_distance.Value);
+                                                                        vla: this.ball_vla.Value);
             }
             if (this.use_club_data.Checked)
             {
