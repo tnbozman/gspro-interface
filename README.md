@@ -188,8 +188,6 @@ This method is used as it allows easy logger integration and dependency manageme
 ```
 
 # Issues Raised With GSPro
-- Launch Monitor Status
 - Passing and Id in the requests which is returned in the responses so that response can be matched to requests
-- Socket State Management (GSPro currently does support disconnect/reconnect)
-- Shot Reponse message error in format
-- Launch Monitor Status 
+- Shot Reponse message spelling error. (Shot send and recieved)
+- Launch Monitor Status Response is a valid shot message (recommend new response code)
