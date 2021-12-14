@@ -13,5 +13,7 @@ namespace GSProInterface.Models.Reponse
         public string Handed { get; set; }
         [JsonProperty("Club")]
         public string Club { get; set; }
+        [JsonProperty("DistanceToPin")]
+        public float? DistanceToPin { get; set; }
     }
 }

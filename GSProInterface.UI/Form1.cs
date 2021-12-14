@@ -109,6 +109,8 @@ namespace GSProInterface.UI
                         this.club_selection.Text = response.Player.Club;
                     if (!string.IsNullOrEmpty(response.Player.Handed))
                         this.player_handed.Text = response.Player.Handed;
+                    if (response.Player.DistanceToPin.HasValue)
+                        this.distance_to_pin.Text = response.Player.DistanceToPin.Value.ToString();
 
                 }
             }
