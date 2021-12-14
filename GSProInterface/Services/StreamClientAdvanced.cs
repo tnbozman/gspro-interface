@@ -18,7 +18,7 @@ namespace GSProInterface.Services
 {
     public class StreamClientAdvanced : IStreamClient
     {
-        private int threadTimeout = 500; // ms
+        private int threadTimeout = 10000; // ms
         private Thread receivingThread;
         private Thread sendingThread;
 
@@ -81,6 +81,11 @@ namespace GSProInterface.Services
         public Socket client { get; set; }
         public void Connect(String address, int port)
         {
+            if (client != null && client.Connected)
+            {
+                Disconnect();
+            }
+
             Address = address;
             Port = port;
             IPAddress ipAddress = null;
@@ -153,6 +158,7 @@ namespace GSProInterface.Services
                 client.Disconnect(false);
                 client.Close();
                 client.Dispose();
+                client = null;
                 OnClientDisconnected();
                 ClearBlockingCollection<ResponseMessage>(ReceiveMessageQueue);
                 ClearBlockingCollection<ShotMessage>(SendMessageQueue);
