@@ -11,7 +11,6 @@ namespace GSProInterface.Models
 {
     public class Constants
     {
-        public const string DEVICE_ID = "LM Example";
         public const Units UNITS = Units.YARDS;
         public const APIVersion API_VERSION = APIVersion._1;
         public const int ReceiveBuffer = 2048;

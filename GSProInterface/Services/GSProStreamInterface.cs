@@ -21,6 +21,7 @@ namespace GSProInterface.Services
         // fulfilled by dependency injection
         private readonly IStreamClient _client;
         private readonly ILogger<IGSProInterface> _logger;
+        private readonly IDeviceDetails _deviceDetails;
 
         // Socket Client Status exposed via the interface
         public Status Status => _client.Status;
@@ -38,10 +39,11 @@ namespace GSProInterface.Services
         public event Action<IGSProInterface, string> ErrorDetected;
         #endregion
 
-        public GSProStreamInterface(ILogger<IGSProInterface> logger, IStreamClient client)
+        public GSProStreamInterface(ILogger<IGSProInterface> logger, IStreamClient client, IDeviceDetails deviceDetails)
         {
             _logger = logger; 
             _client = client;
+            _deviceDetails = deviceDetails;
 
             // Register onto the socket clients events to propagate them to the events of this interface
             _client.ClientConnected += this.OnClientConnected;
@@ -82,7 +84,7 @@ namespace GSProInterface.Services
         public ResponseDto SendBallAndClubData(BallDataDto ballData, ClubDataDto clubData)
         {
             _logger.LogDebug($"Sending ball and club data.");
-            var shotData = ShotAdapter.ShotWithClubAndBallDataToShot(clubData, ballData);
+            var shotData = ShotAdapter.ShotWithClubAndBallDataToShot(clubData, ballData, _deviceDetails);
             return ValidateShotResponse(SendShotData(shotData));
         }
 
@@ -94,7 +96,7 @@ namespace GSProInterface.Services
         public ResponseDto SendBallData(BallDataDto ballData)
         {
             _logger.LogDebug($"Sending ball data only.");
-            var shotData = ShotAdapter.ShotWithBallDataToShot(ballData);
+            var shotData = ShotAdapter.ShotWithBallDataToShot(ballData, _deviceDetails);
             return ValidateShotResponse(SendShotData(shotData));
         }
 
@@ -106,7 +108,7 @@ namespace GSProInterface.Services
         public ResponseDto SendClubData(ClubDataDto clubData)
         {
             _logger.LogDebug($"Sending club data only.");
-            var shotData = ShotAdapter.ShotWithClubDataToShot(clubData);
+            var shotData = ShotAdapter.ShotWithClubDataToShot(clubData, _deviceDetails);
             return ValidateShotResponse(SendShotData(shotData));
         }
 
@@ -117,7 +119,7 @@ namespace GSProInterface.Services
         public void SendLaunchMonitorStatus(bool launchMonitorIsReady)
         {
             _logger.LogDebug($"Sending launch monitor status.");
-            var shotData = ShotAdapter.LaunchMonitorStatusToShot(launchMonitorIsReady);
+            var shotData = ShotAdapter.LaunchMonitorStatusToShot(launchMonitorIsReady, _deviceDetails);
             _client.Send(shotData);
         }
 

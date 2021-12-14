@@ -29,7 +29,7 @@ namespace GSProInterface.UI
             
             // get the required services to run the Winform application
             IGSProInterface app = serviceProvider.GetService<IGSProInterface>();
-            ILogger<GSPRO_INTERFACE> logger = (ILogger<GSPRO_INTERFACE>) serviceProvider.GetService<ILogger>();
+            ILogger<GSPRO_INTERFACE> logger = (ILogger<GSPRO_INTERFACE>) serviceProvider.GetService<ILoggerFactory>().CreateLogger<GSPRO_INTERFACE>();
 
             Application.Run(new GSPRO_INTERFACE(app, logger));
         }
@@ -39,6 +39,7 @@ namespace GSProInterface.UI
             services.AddLogging(configure => configure.SetMinimumLevel(LogLevel.Error).AddConsole());
             services.AddTransient<IStreamClient, StreamClientAdvanced>();
             services.AddTransient<IGSProInterface, GSProStreamInterface>();
+            services.AddTransient<IDeviceDetails>(s => new DeviceDetails { DeviceName = "Example LM" });
         }
     }
 }

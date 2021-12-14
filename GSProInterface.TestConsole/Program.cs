@@ -28,6 +28,7 @@ namespace GSProInterface.TestConsole
             services.AddLogging(configure => configure.SetMinimumLevel(LogLevel.Error).AddConsole());
             services.AddTransient<IStreamClient, StreamClientAdvanced>();
             services.AddTransient<IGSProInterface, GSProStreamInterface>();
+            services.AddTransient<IDeviceDetails>(s => new DeviceDetails { DeviceName = "Example LM" });
         }
 
         private static void StartClient(IGSProInterface gsPro)

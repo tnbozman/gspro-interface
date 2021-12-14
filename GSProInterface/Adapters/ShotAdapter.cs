@@ -1,6 +1,7 @@
 ﻿using GSProInterface.Extensions;
 using GSProInterface.Models;
 using GSProInterface.Models.Request;
+using GSProInterface.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,34 +50,34 @@ namespace GSProInterface.Adapters
         {
             return (float)value;
         }
-        public static ShotDataDto ShotWithBallDataToShot(BallDataDto ballData)
+        public static ShotDataDto ShotWithBallDataToShot(BallDataDto ballData, IDeviceDetails deviceDetails)
         {
-            return PrepareShotData(ballData, null, ShotOptionsForShot(true, false));
+            return PrepareShotData(ballData, null, ShotOptionsForShot(true, false), deviceDetails);
         }
 
-        public static ShotDataDto ShotWithClubDataToShot(ClubDataDto clubData)
+        public static ShotDataDto ShotWithClubDataToShot(ClubDataDto clubData, IDeviceDetails deviceDetails)
         {
-            return PrepareShotData(null, clubData, ShotOptionsForShot(false, true));
+            return PrepareShotData(null, clubData, ShotOptionsForShot(false, true), deviceDetails);
         }
 
-        public static ShotDataDto ShotWithClubAndBallDataToShot(ClubDataDto clubData, BallDataDto ballData)
+        public static ShotDataDto ShotWithClubAndBallDataToShot(ClubDataDto clubData, BallDataDto ballData, IDeviceDetails deviceDetails)
         {
-            return PrepareShotData(ballData, clubData, ShotOptionsForShot(true, true));
+            return PrepareShotData(ballData, clubData, ShotOptionsForShot(true, true), deviceDetails);
         }
 
-        public static ShotDataDto LaunchMonitorStatusToShot(bool launchMonitorIsReady)
+        public static ShotDataDto LaunchMonitorStatusToShot(bool launchMonitorIsReady, IDeviceDetails deviceDetails)
         {
-            return PrepareShotData(null, null, ShotOptionsForLaunchMonitorStatus(launchMonitorIsReady));
+            return PrepareShotData(null, null, ShotOptionsForLaunchMonitorStatus(launchMonitorIsReady), deviceDetails);
         }
 
 
 
-        private static ShotDataDto PrepareShotData(BallDataDto ballData, ClubDataDto clubData, ShotDataOptionsDto options)
+        private static ShotDataDto PrepareShotData(BallDataDto ballData, ClubDataDto clubData, ShotDataOptionsDto options, IDeviceDetails deviceDetails)
         {
             ShotNumber++;
             return new ShotDataDto
             {
-                DeviceID = Constants.DEVICE_ID,
+                DeviceID = deviceDetails.DeviceName,
                 Units = Constants.UNITS.GetDescription(),
                 ShotNumber = ShotNumber,
                 APIVersion = Constants.API_VERSION.GetDescription(),
