@@ -18,7 +18,7 @@ namespace GSProInterface.Services
 {
     public class StreamClientAdvanced : IStreamClient
     {
-        private int threadTimeout = 10000; // ms
+        private int threadTimeout = 2000; // ms
         private Thread receivingThread;
         private Thread sendingThread;
 
@@ -57,6 +57,8 @@ namespace GSProInterface.Services
         /// Raises when a new response was received by the remote session client.
         /// </summary>
         public event Action<IStreamClient, ResponseDto> PlayerInformationReceived;
+        public event Action<IStreamClient, ResponseDto> GSProReadyReceived;
+        public event Action<IStreamClient, ResponseDto> EndOfRoundReceived;
         /// <summary>
         /// Raises when a new response was received by the remote session client.
         /// </summary>
@@ -154,9 +156,7 @@ namespace GSProInterface.Services
             while (receivingThread.IsAlive || sendingThread.IsAlive) ;
             try
             {
-                client.Shutdown(SocketShutdown.Both);
                 client.Disconnect(false);
-                client.Close();
                 client.Dispose();
                 client = null;
                 OnClientDisconnected();
@@ -218,7 +218,6 @@ namespace GSProInterface.Services
                 {
                     if (!SendMessageQueue.TryTake(out msg, threadTimeout))
                     {
-                        _logger.LogDebug($"Send queue read/take failed.");
                         continue;
                     }
                 }
@@ -304,10 +303,14 @@ namespace GSProInterface.Services
                     if (ex.GetType() != typeof(SocketException))
                     {
                         Status = Status.Disconnected;
+                        _logger.LogError(ex.ToString());
                     }
                     else
                     {
-                        _logger.LogError(ex.ToString());
+                        var socketEx = (SocketException)ex;
+                        var error = socketEx.SocketErrorCode.ToString();
+                        if (error != "TimedOut")
+                            _logger.LogError(error);
                     }
 
                 }
@@ -353,10 +356,8 @@ namespace GSProInterface.Services
 
             if (msg is ResponseMessage)
             {
-                var response = (msg as ResponseMessage);
                 _logger.LogDebug($"Received message queued.");
-                ReceiveMessageQueue.Add(response);
-                OnResponseReceived(response.Payload);
+                OnResponseReceived((msg as ResponseMessage));
             }
         }
 
@@ -372,17 +373,28 @@ namespace GSProInterface.Services
             if (ClientDisconnected != null) ClientDisconnected(this);
         }
 
-        protected virtual void OnResponseReceived(ResponseDto response)
+        protected virtual void OnResponseReceived(ResponseMessage msg)
         {
+            var response = msg.Payload;
             if (response.Code == (int)ResponseCodes.SHOT_SUCCESS)
             {
                 _logger.LogDebug($"ShotReceived triggered.");
+                ReceiveMessageQueue.Add(msg);
                 if (ShotReceived != null) ShotReceived(this, response);
             }
             else if (response.Code == (int)ResponseCodes.PLAYER_INFO)
             {
                 _logger.LogDebug($"PlayerInformationReceived triggered.");
                 if (PlayerInformationReceived != null) PlayerInformationReceived(this, response);
+            }
+            else if(response.Code == (int)ResponseCodes.GSPRO_READY){
+                _logger.LogDebug($"GSPro Ready triggered.");
+                if (GSProReadyReceived != null) GSProReadyReceived(this, response);
+            }
+            else if(response.Code == (int)ResponseCodes.ROUND_ENDED)
+            {
+                _logger.LogDebug($"End of Round triggered.");
+                if (EndOfRoundReceived != null) EndOfRoundReceived(this, response);
             }
             else
             {

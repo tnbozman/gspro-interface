@@ -35,6 +35,8 @@ namespace GSProInterface.Services
         /// NOTE: This event is not thread safe see details below
         /// </summary>
         event Action<IGSProInterface, ResponseDto> PlayerInformationReceived;
+        event Action<IGSProInterface, ResponseDto> GSProReadyReceived;
+        event Action<IGSProInterface, ResponseDto> EndOfRoundReceived;
         /// <summary>
         /// An error has occured
         /// NOTE: This event is not thread safe see details below
@@ -57,6 +59,11 @@ namespace GSProInterface.Services
         /// </summary>
         /// <param name="launchMonitorIsReady"></param>
         void SendLaunchMonitorStatus(bool LaunchMonitorIsReady);
+
+        /// <summary>
+        /// Send a heartbeat message to GSPro Connect
+        /// </summary>
+        void SendHeartBeat();
         /// <summary>
         /// Send a shot to GSPro Connect that contains ball data and retrieve the shot's GSPro response
         /// </summary>

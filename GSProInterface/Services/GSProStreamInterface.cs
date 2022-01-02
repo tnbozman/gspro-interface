@@ -33,6 +33,8 @@ namespace GSProInterface.Services
         public event Action<IGSProInterface> ClientDisconnected;
         // signals that a response to a shot has been received from GSPro Connect
         public event Action<IGSProInterface, ResponseDto> ShotReceived;
+        public event Action<IGSProInterface, ResponseDto> GSProReadyReceived;
+        public event Action<IGSProInterface, ResponseDto> EndOfRoundReceived;
         // signals that a response to play information change in GSPro has been received from GSPro Connect
         public event Action<IGSProInterface, ResponseDto> PlayerInformationReceived;
         // An error has occured
@@ -51,7 +53,11 @@ namespace GSProInterface.Services
             _client.ShotReceived += this.OnShotReceived;
             _client.PlayerInformationReceived += this.OnPlayerInformationReceived;
             _client.ErrorDetected += this.OnErrorDetected;
+            _client.GSProReadyReceived += this.OnGSProReady;
+            _client.EndOfRoundReceived += this.OnEndOfRound;
         }
+
+
         #region Methods
         /// <summary>
         /// Attempt to make a connection to GSPro Connect using the provided ip address and port
@@ -120,6 +126,13 @@ namespace GSProInterface.Services
         {
             _logger.LogDebug($"Sending launch monitor status.");
             var shotData = ShotAdapter.LaunchMonitorStatusToShot(launchMonitorIsReady, _deviceDetails);
+            _client.Send(shotData);
+        }
+
+        public void SendHeartBeat()
+        {
+            _logger.LogDebug($"Sending heatbeat.");
+            var shotData = ShotAdapter.HeartBeatToShot(_deviceDetails);
             _client.Send(shotData);
         }
 
@@ -204,6 +217,17 @@ namespace GSProInterface.Services
             if (PlayerInformationReceived != null) PlayerInformationReceived.Invoke(this, response);
         }
 
+
+        protected virtual void OnGSProReady(IStreamClient client, ResponseDto response)
+        {
+            if (GSProReadyReceived != null) GSProReadyReceived.Invoke(this, response);
+        }
+        protected virtual void OnEndOfRound(IStreamClient client, ResponseDto response)
+        {
+            if (EndOfRoundReceived != null) EndOfRoundReceived.Invoke(this, response);
+
+        }
+
         /// <summary>
         /// Handle the error event from the socket client by emitting the event within this interface
         /// </summary>
@@ -213,6 +237,7 @@ namespace GSProInterface.Services
         {
             if (ErrorDetected != null) ErrorDetected.Invoke(this, response);
         }
+
         #endregion
 
     }

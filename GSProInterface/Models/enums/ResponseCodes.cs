@@ -13,6 +13,10 @@ namespace GSProInterface.Models.enums
         SHOT_SUCCESS = 200,
         [Description("Player information")]
         PLAYER_INFO = 201,
+        [Description("GSPro Ready")]
+        GSPRO_READY = 202,
+        [Description("Round Ended")]
+        ROUND_ENDED = 203,
         [Description("Failure occurred")]
         FAILURE = 501 
     }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <Version>0.0.3</Version>
+    <Version>0.1.0</Version>
     <Description>GSProStreamInterface has been implemented to provided to allow Launch Monitor interfaces to be developed and use this interface to communicate with GSPro Connect.
 
 The GSProInterface has been implemented to abstract away the complexity of the GSPro Connect socket connection to a simple communications interface that is capable of interfacing with launch monitors and to be developed into a winform UI application.</Description>
@@ -12,9 +12,7 @@ The GSProInterface has been implemented to abstract away the complexity of the G
     <RepositoryUrl>https://github.com/tnbozman/gspro-interface</RepositoryUrl>
     <PackageTags>GSPro, Golf, Golf Simulation</PackageTags>
     <RepositoryType>GIT</RepositoryType>
-    <PackageReleaseNotes>Inject launch monitor name
-Club enum completed
-Player Info updated to support Distance To Pin</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated to support GSPro 1.2.1</PackageReleaseNotes>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 

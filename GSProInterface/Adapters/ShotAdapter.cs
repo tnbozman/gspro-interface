@@ -70,6 +70,10 @@ namespace GSProInterface.Adapters
             return PrepareShotData(null, null, ShotOptionsForLaunchMonitorStatus(launchMonitorIsReady), deviceDetails);
         }
 
+        public static ShotDataDto HeartBeatToShot(IDeviceDetails deviceDetails)
+        {
+            return PrepareShotData(null, null, ShotOptionsForHearBeat(), deviceDetails);
+        }
 
 
         private static ShotDataDto PrepareShotData(BallDataDto ballData, ClubDataDto clubData, ShotDataOptionsDto options, IDeviceDetails deviceDetails)
@@ -86,18 +90,18 @@ namespace GSProInterface.Adapters
                 ShotDataOptions = options
             };
 
-            /*
-            return new ShotDataDto
-            {       
-                DeviceID = SessionSingleton.DeviceID,
-                Units = SessionSingleton.Units.GetDescription(),
-                ShotNumber = SessionSingleton.ShotNumber,
-                APIVersion = SessionSingleton.APIVersion.GetDescription(),
-                ClubData = clubData,
-                BallData = ballData,
-                ShotDataOptions = options
+        }
+
+        private static ShotDataOptionsDto ShotOptionsForHearBeat()
+        {
+            return new ShotDataOptionsDto
+            {
+                ContainsBallData = false,
+                ContainsClubData = false,
+                LaunchMonitorBallDetected = false,
+                LaunchMonitorIsReady = false,
+                IsHeartBeat = true
             };
-            */
         }
 
 
@@ -108,7 +112,8 @@ namespace GSProInterface.Adapters
                 ContainsBallData = false,
                 ContainsClubData = false,
                 LaunchMonitorBallDetected = false,
-                LaunchMonitorIsReady = launchMonitorIsReady
+                LaunchMonitorIsReady = launchMonitorIsReady,
+                IsHeartBeat = false
             };
         }
 
@@ -119,7 +124,8 @@ namespace GSProInterface.Adapters
                 ContainsBallData = ballData,
                 ContainsClubData = shotData,
                 LaunchMonitorBallDetected = true,
-                LaunchMonitorIsReady = true
+                LaunchMonitorIsReady = true,
+                IsHeartBeat = false
             };
         }
     }

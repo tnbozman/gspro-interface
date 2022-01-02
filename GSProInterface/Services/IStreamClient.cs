@@ -18,6 +18,8 @@ namespace GSProInterface.Services
         event Action<IStreamClient> ClientDisconnected;
         event Action<IStreamClient, ResponseDto> ShotReceived;
         event Action<IStreamClient, ResponseDto> PlayerInformationReceived;
+        event Action<IStreamClient, ResponseDto> GSProReadyReceived;
+        event Action<IStreamClient, ResponseDto> EndOfRoundReceived;
         event Action<IStreamClient, string> ErrorDetected;
 
         void Connect(string address, int port);

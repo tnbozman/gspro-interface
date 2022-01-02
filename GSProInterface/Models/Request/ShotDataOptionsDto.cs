@@ -17,5 +17,7 @@ namespace GSProInterface.Models.Request
         public bool? LaunchMonitorIsReady { get; set; }
         [JsonProperty("LaunchMonitorBallDetected")]
         public bool? LaunchMonitorBallDetected { get; set; }
+        [JsonProperty("IsHeartBeat")]
+        public bool? IsHeartBeat { get; set; }
     }
 }
