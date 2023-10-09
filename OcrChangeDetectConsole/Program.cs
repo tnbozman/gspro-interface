@@ -7,6 +7,7 @@ namespace OcrChangeDetectConsole // Note: actual namespace depends on the projec
 {
     static class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
             // create the service collection

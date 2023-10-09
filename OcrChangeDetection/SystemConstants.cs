@@ -9,5 +9,6 @@ namespace OcrChangeDetection
     public class SystemConstants
     {
        public const string CONFIG_PATH = "config/config.json";
+        public const string OVERLAY_OUTPUT = "overlay.png";
     }
 }
