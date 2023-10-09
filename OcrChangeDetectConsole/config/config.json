@@ -1,0 +1,25 @@
+{
+  "trigger": {
+    "x": 50,
+    "y": 50,
+    "width": 100,
+    "height": 50
+  },
+  "regions": [
+    {
+      "label": "ClubData",
+      "x": 100,
+      "y": 100,
+      "width": 200,
+      "height": 50
+    },
+    {
+      "label": "BallData",
+      "x": 300,
+      "y": 300,
+      "width": 200,
+      "height": 50
+    }
+  ]
+}
+
