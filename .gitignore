@@ -3,3 +3,4 @@
 .vs/
 */bin/**
 */obj/**
+OcrChangeDetection.UI/tessdata/eng.traineddata

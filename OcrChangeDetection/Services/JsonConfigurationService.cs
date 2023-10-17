@@ -1,6 +1,7 @@
 ﻿using OcrChangeDetection.Models;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,17 @@ namespace OcrChangeDetection.Services
             {
                 PropertyNameCaseInsensitive = true
             });
+        }
+
+        public void SaveConfig(Config config, string path)
+        {
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,  // This makes the JSON output formatted nicely
+            };
+
+            string jsonString = JsonSerializer.Serialize(config, options);
+            File.WriteAllText(path, jsonString);
         }
     }
 }

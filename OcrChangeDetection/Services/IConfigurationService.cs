@@ -10,5 +10,6 @@ namespace OcrChangeDetection.Services
     public interface IConfigurationService
     {
         Config ReadConfig(string path);
+        void SaveConfig(Config config, string path);
     }
 }

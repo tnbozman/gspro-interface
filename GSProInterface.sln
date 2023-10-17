@@ -12,9 +12,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrChangeDetection", "OcrChangeDetection\OcrChangeDetection.csproj", "{A5868A65-98D8-4ACA-B9B3-798AB371E6C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcrChangeDetection", "OcrChangeDetection\OcrChangeDetection.csproj", "{A5868A65-98D8-4ACA-B9B3-798AB371E6C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrChangeDetectConsole", "OcrChangeDetectConsole\OcrChangeDetectConsole.csproj", "{4EC41553-C1B8-4FA9-8EFB-42215E07D91C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OcrChangeDetectConsole", "OcrChangeDetectConsole\OcrChangeDetectConsole.csproj", "{4EC41553-C1B8-4FA9-8EFB-42215E07D91C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenCapture", "ScreenCapture\ScreenCapture.csproj", "{69624C7D-9F64-47BB-8AEC-C1C08D9BFD3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OcrChangeDetection.UI", "OcrChangeDetection.UI\OcrChangeDetection.UI.csproj", "{1ECBF4B9-12B9-40E6-B05A-0188676EC527}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -38,6 +42,14 @@ Global
 		{4EC41553-C1B8-4FA9-8EFB-42215E07D91C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EC41553-C1B8-4FA9-8EFB-42215E07D91C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EC41553-C1B8-4FA9-8EFB-42215E07D91C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69624C7D-9F64-47BB-8AEC-C1C08D9BFD3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69624C7D-9F64-47BB-8AEC-C1C08D9BFD3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69624C7D-9F64-47BB-8AEC-C1C08D9BFD3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69624C7D-9F64-47BB-8AEC-C1C08D9BFD3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ECBF4B9-12B9-40E6-B05A-0188676EC527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ECBF4B9-12B9-40E6-B05A-0188676EC527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ECBF4B9-12B9-40E6-B05A-0188676EC527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ECBF4B9-12B9-40E6-B05A-0188676EC527}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
